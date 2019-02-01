@@ -1,10 +1,9 @@
 //(c) A+ Computer Science
 //www.apluscompsci.com
-
-//Name -
-//Date -
-//Class -
-//Lab  -
+//Name - James Maron
+//Date - 2/1/19
+//Class - APCSA
+//Lab  - F101
 
 import java.util.Scanner; 
 import static java.lang.System.*;
@@ -42,12 +41,13 @@ public class MilesPerHour
 
 	public void print()
 	{
+		System.out.println("distance " + distance + "\n hours " + hours + "\n minutes " + minutes + "\n mph " + Math.round(mph));
 	}
 	
 	//create a print or toString or both
 	
 	public String toString()
 	{
-		return distance + "\n" + hours + "\n";
+		return " distance " + distance + "\n hours " + hours + "\n minutes " + minutes + "\n mph " + Math.round(mph);
 	}
 }
