@@ -23,11 +23,11 @@ public class StarsRunner
           flag.printTwentyStars();
           flag.printTwentyDashes();
           flag.printTwentyStars();
-          
+      }
           flag.printTwoBlankLines();
           flag.printABigBox();
           
           "".length();
-	}
+	
    }
 }
