@@ -15,7 +15,6 @@ public class StarsRunner
       //instantiate a StarsAndStripes object
       StarsAndStripes flag = new StarsAndStripes();
       //call the methods needed to make the patterns on the word document
-      for (int i = 0; i < 6; i++) {
     	  flag.printASmallBox();
     	  flag.printTwentyDashes();
           flag.printTwentyStars();
@@ -23,7 +22,6 @@ public class StarsRunner
           flag.printTwentyStars();
           flag.printTwentyDashes();
           flag.printTwentyStars();
-      }
           flag.printTwoBlankLines();
           flag.printABigBox();
           
