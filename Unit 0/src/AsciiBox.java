@@ -1,10 +1,8 @@
 //(c) A+ Computer Science
-//www.apluscompsci.com
-
 //Name - James Maron
 //Date - 1/31
 //Class - APCSA
-//Lab  - 
+//Lab  - F101
 
 public class AsciiBox {
 	public static void main(String[] args) {

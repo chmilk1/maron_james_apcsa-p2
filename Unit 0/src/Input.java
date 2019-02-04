@@ -1,10 +1,9 @@
 //(c) A+ Computer Science
 //www.apluscompsci.com
-
-//Name -
-//Date -
-//Class -
-//Lab  -
+//Name - James Maron
+//Date - 1/31
+//Class - APCSA
+//Lab  - F101
 
 import static java.lang.System.*;
 import java.util.Scanner;
