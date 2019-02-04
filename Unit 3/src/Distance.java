@@ -13,7 +13,7 @@ public class Distance
 {
 	private int xOne,yOne,xTwo,yTwo;
 	private double distance;
-
+	//basic constructors and setters
 	public Distance()
 	{
 		this.xOne = 1;
@@ -40,6 +40,7 @@ public class Distance
 
 	public void calcDistance()
 	{
+		//dist equation
 		distance = Math.sqrt(Math.pow(((double)xTwo-xOne), 2) + Math.pow(((double)yTwo-yOne), 2));
 	}
 	
@@ -47,13 +48,12 @@ public class Distance
 	{
 		return distance;
 	}
-	
+	//bolth print a string with all values
 	public void print()
 	{
 		System.out.println(" x1 " + xOne + "\n x2 " + xTwo + "\n y1 " + yOne + "\n y1 " + yTwo );
 	}
 	
-	//complete print or the toString
 
 	public String toString()
 	{
