@@ -9,6 +9,7 @@ import static java.lang.System.*;
 
 public class NumberVerify
 {
+	//checks if it is odd or even
 	public static boolean isOdd( int num )
 	{
 		return Math.abs(num) % 2 == 1;

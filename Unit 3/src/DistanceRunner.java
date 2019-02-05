@@ -16,6 +16,7 @@ public class DistanceRunner
 {
 	public static void main( String[] args )
 	{
+		//takes in points and prints distance
 		int x1 = Integer.parseInt(JOptionPane.showInputDialog("enter x1"));
 		int x2 = Integer.parseInt(JOptionPane.showInputDialog("enter x2"));
 		int y1 = Integer.parseInt(JOptionPane.showInputDialog("enter y1"));

@@ -7,6 +7,7 @@
 
 public class Cube
 {
+	//returns area of cube
 	public static double area( int side )
 	{
 		return 6*(side*side);

@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 public class AddSubMult
 {
+	//does the opration based on the input
 	public static double check( double a, double b )
 	{
 		if(a > b) {

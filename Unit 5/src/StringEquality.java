@@ -12,6 +12,7 @@ public class StringEquality
 {
 	private String wordOne, wordTwo;
 
+	//basic construstors and setters
 	public StringEquality()
 	{
 	}
@@ -32,7 +33,8 @@ public class StringEquality
 	{
 		return wordOne.equals(wordTwo);
 	}
-
+	
+	//checks if they are equal
 	public String toString()
 	{
 		return checkEquality() ? (wordOne + " has the same letters as " + wordTwo + "\n") : (wordOne + " does not have the same letters as " + wordTwo + "\n");

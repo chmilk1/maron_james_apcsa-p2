@@ -26,10 +26,12 @@ public class WordsCompare {
 		this.wordTwo = two;
 	}
 
+	//compares words with the .compareTo method
 	public void compare() {
 		compare = wordOne.compareTo(wordTwo);
 	}
-
+	
+	//compares the values and prints out a result
 	public String toString() {
 		compare();
 		if (compare < 0) {
