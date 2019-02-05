@@ -8,6 +8,11 @@ public class TriangleOneRunner
 {
 	public static void main ( String[] args )
 	{
-		//add test cases		
+		new TriangleOne("hippo").print();
+		new TriangleOne("abcd").print();
+		new TriangleOne("it").print();
+		new TriangleOne("a").print();
+		new TriangleOne("chicken").print();
+
 	}
 }
