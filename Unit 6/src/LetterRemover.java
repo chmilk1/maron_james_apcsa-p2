@@ -4,6 +4,8 @@
 
 import static java.lang.System.*;
 
+import java.util.stream.Collectors;
+
 public class LetterRemover
 {
    private String sentence;
@@ -11,11 +13,13 @@ public class LetterRemover
 
 	public LetterRemover()
 	{
-		//call set
+		setRemover("hello world", '0');
 	}
-
-	//add in second constructor
 	
+	public LetterRemover(String s, char c)
+	{
+		setRemover(s, c);
+	}
 	
 	public void setRemover(String s, char rem)
 	{
@@ -25,12 +29,11 @@ public class LetterRemover
 
 	public String removeLetters()
 	{
-		String cleaned=sentence;
-		return cleaned;
+		return sentence.chars().mapToObj(c -> "" + ((char) c)).filter(c -> !c.equals("" + lookFor)).collect(Collectors.joining());
 	}
 
 	public String toString()
 	{
-		return sentence + " - letter to remove " + lookFor;
+		return sentence + " - letter to remove " + lookFor + "\n" + removeLetters();
 	}
 }
