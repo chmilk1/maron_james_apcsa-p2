@@ -15,12 +15,12 @@ public class StringOddOrEven
 
 	public StringOddOrEven()
 	{
-		this.word = "hello world";
+		setString("hello world");
 	}
 
 	public StringOddOrEven(String s)
 	{
-		this.word = s;
+		setString(s);
 	}
 
 	public void setString(String s)
