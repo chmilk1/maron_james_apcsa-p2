@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class Word
 {
 	private String word;
-
+	
 	public Word()
 	{
 		word = " ";

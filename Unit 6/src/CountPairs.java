@@ -11,14 +11,14 @@ public class CountPairs
 	//finds pairs by checking the next value to the current value
 	public static int pairCounter( String str )
 	{ 
-		int count = 0;
+		int pairs = 0;
 		char[] strArray = str.toCharArray();
-		for(int i = 0; i < strArray.length-2; i++) {
+		for(int i = 0; i < strArray.length-1; i++) {
 			if(strArray[i] == strArray[i+1]) {
-				count++;
+				pairs++;
 			}
 		}
 		
-		return count;
+		return pairs;
 	}
 }

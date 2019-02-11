@@ -37,9 +37,7 @@ public class Perfect
 				current = current / i;
 			}
 		}
-		if(current > 1) {
-			return false;
-		} else {
+		
 			int sum = 0;
 			//sums the factors
 			for (int j = 0; j < factors.size(); j++) {
@@ -51,7 +49,6 @@ public class Perfect
 			} else {
 				return false;
 			}
-		}
 		
 	}
 

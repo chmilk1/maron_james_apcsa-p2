@@ -21,5 +21,6 @@ public class CountPairsRunner {
 		System.out.println(CountPairs.pairCounter("dogabbcccatpig"));
 		System.out.println(CountPairs.pairCounter("aaaa"));
 		System.out.println(CountPairs.pairCounter("AAAAAAAAA"));
+		System.out.println(CountPairs.pairCounter("ffortnnitee"));
 	}
 }
