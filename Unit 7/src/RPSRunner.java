@@ -15,12 +15,12 @@ public class RPSRunner
 		//add in a do while loop after you get the basics up and running
 		
 			String player = "";
-		
+			while(true) {
 			out.print("type in your prompt [R,P,S] :: ");
+			player = keyboard.next();
+			System.out.println(new RockPaperScissors("" + player.toUpperCase().charAt(0)));	
+			}
 			
-			//read in the player value
-		
-			RockPaperScissors game = new RockPaperScissors();		
 	}
 }
 

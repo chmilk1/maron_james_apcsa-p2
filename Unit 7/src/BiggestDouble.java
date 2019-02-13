@@ -8,6 +8,7 @@ public class BiggestDouble
 {
 	private double one,two,three,four;
 
+	//construtors and setters
 	public BiggestDouble()
 	{
 		this(0,0,0,0);
@@ -27,6 +28,7 @@ public class BiggestDouble
 				
 	}
 
+	//gets the biggest double by itrating through a look and comparing each var to the other vars
 	public double getBiggest()
 	{
 		double[] doubles = {one,two,three,four};
