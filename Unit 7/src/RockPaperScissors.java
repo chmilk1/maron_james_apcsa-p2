@@ -21,7 +21,7 @@ public class RockPaperScissors
 	public RockPaperScissors(String player)
 	{
 		setPlayersChoice(player);
-		this.compChoice = intToWeapon((int) Math.random() *3);
+		this.compChoice = intToWeapon((int) (Math.random() *3));
 	}
 
 	//setter (i refactored the name)
@@ -33,17 +33,18 @@ public class RockPaperScissors
 	//determins winner and prints it out
 	public String determineWinner()
 	{
+		compChoice = compChoice.toUpperCase().trim();
+		playChoice = playChoice.toUpperCase().trim();
 		String winner="error";
-		if ("R".equals(playChoice) && "P".equals(compChoice) ||
+		if (playChoice.equals(compChoice)) {
+			winner = "tie";
+		}
+		else if ("R".equals(playChoice) && "S".equals(compChoice) ||
 			"P".equals(playChoice) && "R".equals(compChoice) ||
 			"S".equals(playChoice) && "P".equals(compChoice)) {
 			winner = "player";
-		} else if ("R".equals(compChoice) && "P".equals(playChoice) ||
-			"P".equals(compChoice) && "R".equals(playChoice) ||
-			"S".equals(compChoice) && "P".equals(playChoice)) {
+		} else  {
 			winner = "computer";
-		} else if (playChoice.equals(compChoice)){
-			winner = "tie";
 		}
 		
 		return winner;
@@ -67,7 +68,7 @@ public class RockPaperScissors
 		if (winner.equals("player")) {
 			winnerWeapon = playChoice;
 		} else if(winner.equals("computer")) {
-			winnerWeapon = playChoice;
+			winnerWeapon = compChoice;
 		}
 		String message = "<<";
 		switch (winnerWeapon) {

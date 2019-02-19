@@ -13,7 +13,7 @@ public class LetterRemover
 
 	public LetterRemover()
 	{
-		setRemover("hello world", '0');
+		this("hello world", '0');
 	}
 	
 	public LetterRemover(String s, char c)
