@@ -27,13 +27,15 @@ public class TriangleFive {
 	}
 
 	public String toString() {
+		//vars
 		String output = "";
 		char[] startingChars = getChars(letter, amount);
 		String[][] boxes = new String[startingChars.length][];
 		
+		//populate lists
 		for (int i = 0; i < boxes.length; i++) {
-			String[] first = new String[startingChars.length - i];
-			for (int j = 0; j < first.length - i; j++) {
+			String[] first = new String[boxes.length - i];
+			for (int j = 0; j < first.length; j++) {
 				String line = "";
 				for (int x = 0; x < startingChars.length - i; x++) {
 					line = line + startingChars[i];
@@ -43,6 +45,13 @@ public class TriangleFive {
 			boxes[i] = first;
 		}
 		
+		//print lists
+		for (int i = 0; i < boxes.length; i++) {
+			for (int j = 0; j < boxes.length-i; j++) {
+				output = output + boxes[j][i] + "  ";
+			}
+			output = output + "\n";
+		}
 		
 		return output;
 	}
@@ -50,16 +59,12 @@ public class TriangleFive {
 	//Takes a capatal letter and gives back a list of letters
 	public char[] getChars(char startL, int numOfletters) {
 		char[] ret = new char[numOfletters];
-		int iSetback = 0;
-		for (int i = 0; i < amount; i++) {
-			if(startL + i < 91) {
-			ret[i] = (char) (startL + i);
-			} else if(startL + i == 91) {
-				ret[i] = 'A';
-			} else {
-				ret[i] = (char) (ret[i-1] + 1);
-			}
+		int start = startL;
+		for (int i = 0; i < numOfletters; i++) {
+			if(start + i > 90) start = 65-i;
+			ret[i] = (char) (start+i);
 		}
+		
 		return ret;
 		
 	}
