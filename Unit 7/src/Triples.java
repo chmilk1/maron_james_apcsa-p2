@@ -36,7 +36,7 @@ public class Triples {
 		String output="";
 		for(int a = 1; a < number; a++) {
 			for(int b = 1; b < number; b++) {
-				for(int c = 1; c < number; c++) {
+				for(int c = 1; c < number; c++) { 
 					boolean testOne = Math.pow(a, 2) + Math.pow(b, 2) == Math.pow(c, 2);
 					boolean testTwo = (a % 2 == 1 && b % 2 == 0) || (a % 2 == 0 && b % 2 == 1) && c % 2 == 0;
 					boolean testThree = greatestCommonFactor(a, b, c) <= 1;
