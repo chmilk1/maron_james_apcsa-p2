@@ -15,7 +15,7 @@ public class TriangleFive {
 
 	public TriangleFive(char c, int amt) {
 		setLetter(c);
-		setAmount(amt);
+		setAmount(Math.abs(amt));
 	}
 
 	public void setLetter(char c) {

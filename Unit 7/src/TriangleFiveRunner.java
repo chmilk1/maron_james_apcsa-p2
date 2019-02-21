@@ -12,5 +12,6 @@ public class TriangleFiveRunner {
 		System.out.println(new TriangleFive('B', 7));
 		System.out.println(new TriangleFive('X', 6));
 		System.out.println(new TriangleFive('Z', 8));
+		System.out.println(new TriangleFive('M', 15));
 	}
 }

@@ -53,7 +53,6 @@ public class RockPaperScissors
 	//int to a choice method
 	public String intToWeapon(int num) {
 		return num > 0 ? (num == 1 ? "P" : "S") : "R";
-		
 	}
 
 	public String toString()

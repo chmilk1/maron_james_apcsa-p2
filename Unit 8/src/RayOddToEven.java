@@ -7,6 +7,7 @@ public class RayOddToEven
 {
 	public static int go(int[] ray)
 	{
+		//once a odd is found, set oddFound true allowing the even to be found
 		int odd = -1;
 		boolean oddFound = false;
 		int even = -1;
