@@ -22,31 +22,31 @@ public class Triples {
 
 	private int greatestCommonFactor(int a, int b, int c) {
 		final int MAX = Math.min(a, Math.min(c, b));
-		int max = 1;
-		for (int i = 2; i < MAX; i++) {
+		int maxGCF = 1;
+		for (int i = 1; i < MAX; i++) {
 			if (a % i == 0 && b % i == 0 && c % i == 0) {
-				max = i;
+				maxGCF = i;
 			}
 		}
-		return max;
+		return maxGCF;
 	}
 
-	public String toString()
-	{
-		String output="";
-		for(int a = 1; a < number; a++) {
-			for(int b = 1; b < number; b++) {
-				for(int c = 1; c < number; c++) { 
+	public String toString() {
+		String output = "";
+		for (int a = 1; a < number; a++) {
+			for (int b = 1; b < number; b++) {
+				for (int c = 1; c < number; c++) {
 					boolean testOne = Math.pow(a, 2) + Math.pow(b, 2) == Math.pow(c, 2);
-					boolean testTwo = (a % 2 == 1 && b % 2 == 0) || (a % 2 == 0 && b % 2 == 1) && c % 2 == 0;
-					boolean testThree = greatestCommonFactor(a, b, c) <= 1;
-					//System.out.println(testOne + " " + testTwo + " " + testThree);
-					if(testOne && testTwo && testThree) {
+					boolean testTwo = (a % 2 == 1 && b % 2 == 0) || (a % 2 == 0 && b % 2 == 1) && c % 2 == 1;
+					boolean testThree = greatestCommonFactor(a, b, c) == 1;
+					boolean repeatTest = a < b && b < c;
+					// System.out.println(testOne + " " + testTwo + " " + testThree);
+					if (testOne && testTwo && testThree && repeatTest) {
 						output = output + a + " " + b + " " + c + " \n";
 					}
 				}
 			}
 		}
-		return output+"\n";
+		return output + "\n";
 	}
 }

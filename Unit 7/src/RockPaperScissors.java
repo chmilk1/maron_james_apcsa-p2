@@ -55,6 +55,7 @@ public class RockPaperScissors
 		return num > 0 ? (num == 1 ? "P" : "S") : "R";
 	}
 
+	@Override
 	public String toString()
 	{
 		String output= "player had " + playChoice + "\ncomputer had " + compChoice + "\n" + (determineWinner().equals("tie") ? "Tie!" : determineWinner() + " winns") + " " + getAction();
