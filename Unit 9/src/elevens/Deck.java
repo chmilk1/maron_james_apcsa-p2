@@ -65,7 +65,7 @@ public class Deck {
 	 * @return the number of undealt cards in this deck.
 	 */
 	public int size() {
-		return size();
+		return cards.length;
 		/* *** IMPLEMENTED IN ACTIVITY 2 *** 2/22 */
 	}
 
@@ -88,7 +88,12 @@ public class Deck {
 				finalList.add(finalList.size()/2, c);
 			}
 		}
-		cards = (Card[]) finalList.toArray();
+		
+		Card[] shuffledCards = new Card[finalList.size()];
+		for (int i = 0; i < finalList.size(); i++) {
+			shuffledCards[i] = finalList.get(i);
+		}
+		cards = shuffledCards;
 		
 	}
 
@@ -98,7 +103,16 @@ public class Deck {
 	 *         previously dealt.
 	 */
 	public Card deal() {
-		/* *** TO BE IMPLEMENTED IN ACTIVITY 2 *** */
+		if(cards.length > 1) {
+			Card ret = cards[0];
+			Card[] temp = new Card[cards.length-1];
+			for (int i = 0; i < temp.length; i++) {
+				temp[i] = cards[i+1];
+			}
+			return ret;
+		}
+		return null;
+		/* ***IMPLEMENTED IN ACTIVITY 2 *** 2/25 */
 	}
 
 	/**
@@ -110,7 +124,7 @@ public class Deck {
 		String rtn = "size = " + size + "\nUndealt cards: \n";
 
 		for (int k = size - 1; k >= 0; k--) {
-			rtn = rtn + cards.get(k);
+			rtn = rtn + cards[k];
 			if (k != 0) {
 				rtn = rtn + ", ";
 			}
@@ -121,12 +135,12 @@ public class Deck {
 		}
 
 		rtn = rtn + "\nDealt cards: \n";
-		for (int k = cards.size() - 1; k >= size; k--) {
-			rtn = rtn + cards.get(k);
+		for (int k = cards.length - 1; k >= size; k--) {
+			rtn = rtn + cards[k];
 			if (k != size) {
 				rtn = rtn + ", ";
 			}
-			if ((k - cards.size()) % 2 == 0) {
+			if ((k - cards.length) % 2 == 0) {
 				// Insert carriage returns so entire deck is visible on console.
 				rtn = rtn + "\n";
 			}
