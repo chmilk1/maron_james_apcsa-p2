@@ -10,10 +10,17 @@ import java.util.ArrayList;
 
 public class ListDown
 {
-	//go() will return true if all numbers in numArray
-	//are in decreasing order [31,12,6,2,1]
+	//Lab Description didn't match sample output, this variable will change witch it follows
+	final static boolean FOLLOW_OUTPUT = true;
+	
 	public static boolean go(List<Integer> numArray)
 	{
+		for (int i = 1; i < numArray.size(); i++) {
+			if((numArray.get(i) >= numArray.get(i-1) && FOLLOW_OUTPUT) || 
+					(numArray.get(i) <= numArray.get(i-1) && !FOLLOW_OUTPUT)) {
+				return false;
+			}
+		}
 		return true;
 	}	
 }
