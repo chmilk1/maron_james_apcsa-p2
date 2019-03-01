@@ -14,7 +14,7 @@ public class SumFirstRunner
 {
 	public static void main( String args[] )
 	{				
-		//converting int[] -> ArrayList<Integer> instead of doing .add
+		//converting int[] -> ArrayList<Integer> instead of doing .add (was not aware of Arrays.asList())
 		ArrayList<Integer> list1 = new ArrayList<>();
 		list1.addAll( Arrays.stream(new int[]{-99,1,2,3,4,5,6,7,8,9,10,5}).boxed().collect(Collectors.toList()));
 		System.out.println(ListSumFirst.go(list1));

@@ -9,7 +9,7 @@ public class OddToEvenRunner
 {
 	public static void main( String args[] )
 	{
-		//.box method converts int[] -> List<Integer>
+		//.box method converts int[] -> List<Integer> (was not aware of Arrays.asList())
 		System.out.println(ListOddToEven.go(ListOddToEven.box(new int[] {7,1,5,3,11,5,6,7,8,9,10,12345,11})));
 		System.out.println(ListOddToEven.go(ListOddToEven.box(new int[] {11,9,8,7,6,5,4,3,2,1,-99,7})));
 		System.out.println(ListOddToEven.go(ListOddToEven.box(new int[] {10,20,30,40,5,41,31,20,11,7})));

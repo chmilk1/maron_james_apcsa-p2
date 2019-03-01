@@ -9,7 +9,7 @@ public class DownRunner
 {
 	public static void main( String args[] )
 	{			
-		//calling .box method from prevous code
+		//calling .box method from prevous code (was not aware of Arrays.asList())
 		//output didnt match instructions, so i matched output instead
 		//change constant in ListDown to switch
 		System.out.println(ListDown.go(ListOddToEven.box(new int[]{-99,1,2,3,4,5,6,7,8,9,10,12345})));

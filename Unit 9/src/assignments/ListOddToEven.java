@@ -33,7 +33,7 @@ public class ListOddToEven
 		 */
 	}
 	
-	//Very usefull method:
+	//Very usefull method (was not aware of Arrays.asList()):
 	//converting primitive type arrays in to boxed Integer Lists(the int[] are easer to implement)
 	public static List<Integer> box(int[] ints) {
 		List<Integer> list = new ArrayList<>();
