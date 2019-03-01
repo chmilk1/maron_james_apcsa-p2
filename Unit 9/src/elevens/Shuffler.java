@@ -1,5 +1,11 @@
 package elevens;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+
 /**
  * This class provides a convenient way to test shuffling methods.
  */
@@ -9,12 +15,12 @@ public class Shuffler {
 	 * The number of consecutive shuffle steps to be performed in each call
 	 * to each sorting procedure.
 	 */
-	private static final int SHUFFLE_COUNT = 1;
+	private static final int SHUFFLE_COUNT = 4;
 
 	/**
 	 * The number of values to shuffle.
 	 */
-	private static final int VALUE_COUNT = 4;
+	private static final int VALUE_COUNT = 12;
 
 	/**
 	 * Tests shuffling methods.
@@ -28,10 +34,10 @@ public class Shuffler {
 			values1[i] = i;
 			}
 		for (int j = 1; j <= SHUFFLE_COUNT; j++) {
-			perfectShuffle(values1);
+			values1 = perfectShuffle(values1);
 			System.out.print("  " + j + ":");
 			for (int k = 0; k < values1.length; k++) {
-				System.out.print(" " + values1[k]);
+				System.out.print(" " + values1[k] + ", ");
 			}
 			System.out.println();
 		}
@@ -44,10 +50,10 @@ public class Shuffler {
 			values2[i] = i;
 			}
 		for (int j = 1; j <= SHUFFLE_COUNT; j++) {
-			selectionShuffle(values2);
+			values2 = selectionShuffle(values2);
 			System.out.print("  " + j + ":");
 			for (int k = 0; k < values2.length; k++) {
-				System.out.print(" " + values2[k]);
+				System.out.print(" " + values2[k] + ", ");
 			}
 			System.out.println();
 		}
@@ -61,25 +67,19 @@ public class Shuffler {
 	 * the cards in one half with the cards in the other.
 	 * @param values is an array of integers simulating cards to be shuffled.
 	 */
-	public static void perfectShuffle(int[] values) {
-		int[] firstHalf = new int[values.length/2];
-		int[] secondHalf = new int[(values.length/2)+1];
-		for (int i = 0; i < values.length-1; i++) {
-			if(i < values.length/2) {
-				firstHalf[i] = values[i];
-			} else {
-				secondHalf[i] = values[i-values.length/2];
-			}
+	public static int[] perfectShuffle(int[] values) {
+		ArrayList<Integer> list = (ArrayList<Integer>) assignments.ListOddToEven.box(values);
+		List<Integer> l1 = list.subList(0, list.size()/2);
+		List<Integer> l2 = list.subList(list.size()/2, list.size());
+		
+		ArrayList<Integer> finalList = new ArrayList<>();
+		for (int i = 0; i < list.size(); i++) {
+			finalList.add(i % 2 == 0 ? l1.get(i/2) : l2.get(i/2));
 		}
 		
-		for (int i = 0; i < values.length; i++) {
-			if(i % 2 ==0) {
-				values[i] = firstHalf[i/2];
-			} else {
-				values[i] = secondHalf[i/2];
-			}
-		}
-		/* *** IMPLEMENTED IN ACTIVITY 3 *** */
+		return finalList.stream().mapToInt(i -> i.intValue()).toArray();
+		
+		/* *** IMPLEMENTED IN ACTIVITY 3 2/2? & 3/1 *** */
 	}
 
 	/**
@@ -93,7 +93,16 @@ public class Shuffler {
 	 * searching for an as-yet-unselected card.
 	 * @param values is an array of integers simulating cards to be shuffled.
 	 */
-	public static void selectionShuffle(int[] values) {
-		/* *** TO BE IMPLEMENTED IN ACTIVITY 3 *** */
+	public static int[] selectionShuffle(int[] values) {
+		/* *** IMPLEMENTED IN ACTIVITY 3 *** 3/1 */
+		List<Integer> inital = assignments.ListOddToEven.box(values);
+		List<Integer> selected = new ArrayList<>();
+		Random rand = new Random();
+		while(!inital.isEmpty()) {
+			int index = rand.nextInt(inital.size());
+			selected.add(inital.get(index));
+			inital.remove(index);
+		}
+		return selected.stream().mapToInt(i -> i.intValue()).toArray();
 	}
 }
