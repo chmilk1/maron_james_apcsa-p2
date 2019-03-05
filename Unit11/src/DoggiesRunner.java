@@ -21,7 +21,11 @@ public class DoggiesRunner
 			int age = keyboard.nextInt();
 			System.out.print("Enter the name :: ");
 			String name  = keyboard.next();
-			pack.set(i, age, name);
+			try {
+				pack.set(i, age, name);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}		
 		System.out.println("pack :: "+pack);
 		System.out.println("NAME OF OLDEST :: "+pack.getNameOfOldest());

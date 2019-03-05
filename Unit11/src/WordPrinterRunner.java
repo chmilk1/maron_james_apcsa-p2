@@ -18,7 +18,7 @@ public class WordPrinterRunner
 			out.print("Enter the times to display :: ");
  			int times = keyboard.nextInt();			
 			
-			//call the printWord method
+			WordPrinter.printWord(word, times);
 
 			System.out.print("\nDo you want to enter more sample input? ");
 			choice=keyboard.next();			
