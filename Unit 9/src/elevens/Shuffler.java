@@ -79,7 +79,7 @@ public class Shuffler {
 		
 		return finalList.stream().mapToInt(i -> i.intValue()).toArray();
 		
-		/* *** IMPLEMENTED IN ACTIVITY 3 2/2? & 3/1 *** */
+		/* *** IMPLEMENTED IN ACTIVITY 3 2/28? & 3/1 *** */
 	}
 
 	/**
