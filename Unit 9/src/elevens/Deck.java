@@ -38,6 +38,7 @@ public class Deck {
 		for (int i = 0; i < ranks.length; i++) {
 			this.cards[i] = new Card(ranks[i], suits[i], values[i]);
 		}
+		shuffle();
 	}
 	
 	public Deck(List<Card> cards) {

@@ -11,32 +11,44 @@ public class Toy
 
 	public Toy()
 	{
+		setName("toy");
+		setCount(0);
 	}
 
 	public Toy( String nm )
 	{
+		setName(nm);
+		setCount((int) (Math.random()*1000));
+	}
+	
+	public Toy( String nm, int cnt )
+	{
+		setName(nm);
+		setCount(cnt);
 	}
 	
 	public int getCount()
 	{
-		return 0;
+		return this.count;
 	}
 	
 	public void setCount( int cnt )
 	{
+		this.count = cnt;
 	}
 	
 	public String getName()
 	{
-		return null;
+		return this.name;
 	}
 	
 	public void setName( String nm )
 	{
+		this.name = nm;
 	}
 
 	public String toString()
 	{
-	   return "";
+	   return name + " " + count;
 	}
 }
