@@ -30,13 +30,20 @@ public class WordSearch
     		if(getColum(x).contains(word)) {
     			return true;
     		}
+    		if(getDiag(x,m[0].length-1).contains(new StringBuffer(word).reverse().toString())) {
+    			return true;
+    		}
     	}
     	
     	for(int y = 0; y < m.length; y++) {
     		if(getColum(y).contains(word)) {
     			return true;
     		}
+    		if(getDiag(m.length-1,y).contains(new StringBuffer(word).reverse().toString())) {
+    			return true;
+    		}
     	}
+    	
     	return false;
     }
 
@@ -56,6 +63,11 @@ public class WordSearch
 	}
 	public String getDiag(int x, int y) {
 		String diag = "";
+		while(x > 0 && y > 0) {
+			diag += m[x][y];
+			x--;
+			y--;
+		}
 		return diag;
 	}
 
