@@ -12,15 +12,22 @@ public class WordSortTwo
 
 	public WordSortTwo(String sentence)
 	{
+		wordRay = sentence.split("\\s+");
 	}
 
 	public void sort()
 	{
+		Object[] sortedWordRay = Arrays.stream(wordRay).sorted().toArray();
+		for(int i = 0; i < sortedWordRay.length; i++) {
+			wordRay[i] = (String) sortedWordRay[i];
+		}
 	}
 
 	public String toString()
 	{
 		String output="";
-		return output+"\n\n";
+		for(String s : wordRay)
+			output += s + "\n";
+		return output+"\n";
 	}
 }

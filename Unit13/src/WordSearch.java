@@ -11,51 +11,52 @@ public class WordSearch
 
     public WordSearch( int size, String str )
     {
+    	m = new String[size][size];
+    	if(str.length() % size != 0) {
+    		System.out.println(str.length() % size);
+    		throw new IllegalArgumentException();
+    	}
+    	for(int line = 0; line < str.length()/size; line++) {
+    		char[] area = str.substring(line*size, (line+1)*size).toCharArray();
+    		for(int spot = 0; spot < area.length; spot++) {
+    			m[line][spot] = "" + area[spot];
+    		}
+    	}
     }
 
     public boolean isFound( String word )
     {
+    	for(int x = 0; x < m.length; x++) {
+    		if(getColum(x).contains(word)) {
+    			return true;
+    		}
+    	}
+    	
+    	for(int y = 0; y < m.length; y++) {
+    		if(getColum(y).contains(word)) {
+    			return true;
+    		}
+    	}
     	return false;
     }
 
-	public boolean checkRight(String w, int r, int c)
-   {
-		return false;
+	public String getRow(int y) {
+		String row = "";
+		for(int x = 0; x < m.length; x++) {
+			row += m[x][y];
+		}
+		return row;
 	}
-
-	public boolean checkLeft(String w, int r, int c)
-	{
-		return false;
+	public String getColum(int x) {
+		String colum = "";
+		for(int y = 0; y < m[0].length; y++) {
+			colum += m[x][y];
+		}
+		return colum;
 	}
-
-	public boolean checkUp(String w, int r, int c)
-	{
-		return false;
-	}
-
-	public boolean checkDown(String w, int r, int c)
-   {
-	   return false;
-	}
-
-	public boolean checkDiagUpRight(String w, int r, int c)
-	{
-		return false;
-	}
-
-	public boolean checkDiagUpLeft(String w, int r, int c)
-	{
-		return false;
-	}
-
-	public boolean checkDiagDownLeft(String w, int r, int c)
-   {
-		return false;
-	}
-
-	public boolean checkDiagDownRight(String w, int r, int c)
-	{
-		return false;
+	public String getDiag(int x, int y) {
+		String diag = "";
+		return diag;
 	}
 
     public String toString()
