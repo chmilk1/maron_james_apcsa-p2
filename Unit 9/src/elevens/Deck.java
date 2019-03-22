@@ -16,6 +16,7 @@ public class Deck {
 	 * cards contains all the cards in the deck.
 	 */
 	private Card[] cards;
+	private Card[] cardsBACKUP;
 
 	/**
 	 * size is the number of not-yet-dealt cards.
@@ -35,9 +36,13 @@ public class Deck {
 	 */
 	public Deck(String[] ranks, String[] suits, int[] values) {
 		/* *** IMPLEMENTED IN ACTIVITY 2 *** 2/22 */
-		for (int i = 0; i < ranks.length; i++) {
-			this.cards[i] = new Card(ranks[i], suits[i], values[i]);
+		cards = new Card[52];
+		for(int suit = 0; suit < 4; suit++) {
+			for(int card = 0; card < 13; card++) {
+				cards[suit*13+card] = new Card(ranks[card],suits[suit],values[card]);
+			}
 		}
+		cardsBACKUP = cards;
 		shuffle();
 	}
 	
@@ -75,6 +80,7 @@ public class Deck {
 	 * and reset the size to represent the entire deck.
 	 */
 	public void shuffle() {
+		cards = cardsBACKUP;
 		Random rand = new Random();
 		/* *** IMPLEMENTED IN ACTIVITY 4 *** 2/22 */
 		ArrayList<Card> temp = new ArrayList<Card>();
@@ -110,6 +116,7 @@ public class Deck {
 			for (int i = 0; i < temp.length; i++) {
 				temp[i] = cards[i+1];
 			}
+			cards = temp;
 			return ret;
 		}
 		return null;

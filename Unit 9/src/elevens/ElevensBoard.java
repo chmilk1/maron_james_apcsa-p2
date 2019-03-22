@@ -55,40 +55,50 @@ public class ElevensBoard extends Board {
 	 * @return true if the selected cards form a valid group for removal;
 	 *         false otherwise.
 	 */
-	@Override
-	public boolean isLegal(List<Integer> selectedCards) {
-		if(selectedCards.size() == 3) {
-			int jackQueenKing = 36;
-			boolean hasPointCard = false;
-			for (Integer i : selectedCards) {
-				if(!(i.intValue() > 10)) {
-					jackQueenKing -= i.intValue();
-				} else {
-					hasPointCard = true;
-				}
-			}
-			if(jackQueenKing == 0 && !hasPointCard) {
-				return true;
-			} else if(!hasPointCard) {
-				return false;
-			}
-		}
-		
-		if(selectedCards.size() > 2) {
-			return false;
-		}
-		
-		int sum = 0;
-		for(Integer i : selectedCards){
-			if(i.intValue() > 11) {
-				return false;
-			}
-			sum += i.intValue();
-		}
-		if(sum == 11) {
+	public boolean isLegalP(List<Integer> selectedCards) {
+		System.out.println(selectedCards.size() + " is LEGAL P");
+		if(containsJQK(selectedCards) || containsPairSum11(selectedCards)) {
 			return true;
 		}
 		return false;
+		/* *** IMPLEMENTED IN ACTIVITY 9 *** 3/14/19 */
+	}
+	@Override
+	public boolean isLegal(List<Integer> selectedCards) {
+		boolean king = false;
+		boolean queen = false;
+		boolean jack = false;
+		List<Integer> pointValues = new ArrayList<>();
+		for(Integer i : selectedCards) {
+			if(cardAt(i).pointValue() == 0) {
+				switch(cardAt(i).rank()){
+				case"king":
+					if(!king) {
+						pointValues.add(cardAt(i).pointValue());
+						king = true;
+					}
+					break;
+				case"queen":
+					if(!queen) {
+						pointValues.add(cardAt(i).pointValue());
+						queen = true;
+					}
+					break;
+				case"jack":
+					if(!jack) {
+						pointValues.add(cardAt(i).pointValue());
+						jack = true;
+					}
+					break;
+				default:
+					pointValues.add(cardAt(i).pointValue());
+					break;
+				}
+			} else {
+			pointValues.add(cardAt(i).pointValue());
+			}
+		}
+		return isLegalP(pointValues);
 		/* *** IMPLEMENTED IN ACTIVITY 9 *** 3/14/19 */
 	}
 
@@ -105,16 +115,22 @@ public class ElevensBoard extends Board {
 		/* *** IMPLEMENTED IN ACTIVITY 9 3/14/19 *** */
 		for(int i = 0; i < this.getCards().length; i++) {
 			for(int j = 0; j < this.getCards().length; j++) {
-				if(i != j && isLegal(Arrays.asList( cardAt(i).pointValue() , cardAt(i).pointValue() ))) {
+				if(i != j && isLegalP(Arrays.asList( (Integer)cardAt(i).pointValue() , (Integer)cardAt(j).pointValue() ))) {
 					return true;
 				}
 			}
 		}
-		String s = Arrays.stream(this.getCards()).mapToInt(c -> c.pointValue()).filter(i -> i>10).mapToObj(i -> "" + i).collect(Collectors.joining(" "));
-		if(s.contains("11") && s.contains("12") && s.contains("13")) {
-			return true;
+		for(int i = 0; i < this.getCards().length; i++) {
+			for(int j = 0; j < this.getCards().length; j++) {
+				for(int k = 0; k < this.getCards().length; k++) {
+					if((i != j && i != k && j != k) && isLegalP(Arrays.asList( (Integer)cardAt(i).pointValue() , (Integer)cardAt(j).pointValue() , (Integer)cardAt(k).pointValue() ))) {
+						return true;
+					}
+				}
+			}
 		}
 		return false;
+		
 	}
 
 	/**
@@ -127,13 +143,14 @@ public class ElevensBoard extends Board {
 	 */
 	private boolean containsPairSum11(List<Integer> selectedCards) {
 		/* *** IMPLEMENTED IN ACTIVITY 9 3/14/19 *** */
+		System.out.println(selectedCards.size() + "Pair 11");
 		if(selectedCards.size() > 2) {
 			return false;
 		}
 		
 		int sum = 0;
 		for(Integer i : selectedCards){
-			if(i.intValue() > 11) {
+			if(i.intValue() < 1) {
 				return false;
 			}
 			sum += i.intValue();
@@ -153,22 +170,15 @@ public class ElevensBoard extends Board {
 	 *              include a jack, a queen, and a king; false otherwise.
 	 */
 	private boolean containsJQK(List<Integer> selectedCards) {
+		System.out.println(selectedCards.size() + "contains JDK");
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
 		if(selectedCards.size() == 3) {
-			int jackQueenKing = 36;
-			boolean hasPointCard = false;
-			for (Integer i : selectedCards) {
-				if(!(i.intValue() > 10)) {
-					jackQueenKing -= i.intValue();
-				} else {
-					hasPointCard = true;
-				}
+			int total = 0;
+			for(Integer i : selectedCards) {
+				total += i;
 			}
-			if(jackQueenKing == 0 && !hasPointCard) {
+			if(total == 0)
 				return true;
-			} else if(!hasPointCard) {
-				return false;
-			}
 		}
 		return false;
 	}
