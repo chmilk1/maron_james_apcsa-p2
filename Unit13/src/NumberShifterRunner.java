@@ -17,13 +17,10 @@ public class NumberShifterRunner
 		int runs = scan.nextInt();
 		Random rand = new Random();
 		for(int i = 0; i < runs; i++) {
-			int[] array = NumberShifter.makeLucky7Array(20);
+			int[] array = NumberShifter.makeLucky7Array(20*(i+1));
 			System.out.println(Arrays.toString(array));
 			System.out.println(Arrays.toString(NumberShifter.shiftEm(array)));
 			System.out.println();
 		}
 	}
 }
-
-
-
