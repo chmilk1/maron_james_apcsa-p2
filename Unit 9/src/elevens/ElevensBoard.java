@@ -121,13 +121,7 @@ public class ElevensBoard extends Board {
 			}
 		}
 		for(int i = 0; i < this.getCards().length; i++) {
-			for(int j = 0; j < this.getCards().length; j++) {
-				for(int k = 0; k < this.getCards().length; k++) {
-					if((i != j && i != k && j != k) && isLegalP(Arrays.asList( (Integer)cardAt(i).pointValue() , (Integer)cardAt(j).pointValue() , (Integer)cardAt(k).pointValue() ))) {
-						return true;
-					}
-				}
-			}
+			
 		}
 		return false;
 		

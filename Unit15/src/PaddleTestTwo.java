@@ -19,10 +19,6 @@ public class PaddleTestTwo extends Canvas implements KeyListener, Runnable
 	private Paddle leftPaddle;
 	private Paddle rightPaddle;
 	private boolean[] keys;		//keeps track of what keys are pressed
-	
-	public static void main(String[] args) {
-		PaddleTestTwo two = new PaddleTestTwo();
-	}
 
 	public PaddleTestTwo()
 	{
@@ -34,8 +30,8 @@ public class PaddleTestTwo extends Canvas implements KeyListener, Runnable
 		
 		
 		//instantiate a left Paddle
-		leftPaddle = new Paddle(10, 200, 20, 80, Color.RED, 7);
-		rightPaddle = new Paddle(10, 200, 20, 80, Color.BLUE, 7);
+		leftPaddle = new Paddle(10, 200, 80, 20, Color.RED, 7);
+		rightPaddle = new Paddle(10, 200, 80, 20, Color.BLUE, 7);
 		
 		 
 		
