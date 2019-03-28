@@ -121,9 +121,16 @@ public class ElevensBoard extends Board {
 			}
 		}
 		for(int i = 0; i < this.getCards().length; i++) {
-			
-		}
-		return false;
+			for(int j = 0; i < this.getCards().length; i++) {
+				for(int x = 0; i < this.getCards().length; i++) {
+					if(i != x && i != j && j != x) {
+						if(isLegal(Arrays.asList((Integer) i, (Integer) j, (Integer) x))) {
+							return true;
+						}
+					}
+				}
+			}
+		}		return false;
 		
 	}
 

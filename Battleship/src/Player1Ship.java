@@ -1,13 +1,13 @@
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class Ship extends Entity{
+public class Player1Ship extends Entity{
 	
 	private int width;
 	private int height;
 	private Color color;
 
-	public Ship(int x, int y, int z, int width, int height, Color c) {
+	public Player1Ship(int x, int y, int z, int width, int height, Color c) {
 		super(x,y,z);
 		this.width = width;
 		this.height = height;
@@ -15,7 +15,18 @@ public class Ship extends Entity{
 	}
 	@Override
 	public void update(Game game) {
-		// TODO Auto-generated method stub
+		if(game.isW()) {
+			setyAcl(5);
+		}
+		if(game.isS()) {
+			setyAcl(-5);
+		}
+		if(game.isA()) {
+			setxAcl(5);
+		}
+		if(game.isD()) {
+			setxAcl(-5);
+		}
 		super.update(game);
 	}
 	
