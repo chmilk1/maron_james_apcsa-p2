@@ -28,7 +28,7 @@ public class Tester extends JFrame
 				g.update();
 				g.repaint();
 			}
-		},  34);
+		},  34, 34);
 	}
 
 	public static void main( String args[] )

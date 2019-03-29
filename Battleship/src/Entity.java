@@ -5,13 +5,13 @@ public abstract class Entity implements Locatable, Comparable<Entity> {
 	private int y;
 	private int z;
 	
-	private int xVel;
-	private int yVel;
-	private int zVel;
+	private double xVel;
+	private double yVel;
+	private double zVel;
 	
-	private int xAcl;
-	private int yAcl;
-	private int zAcl;
+	private double xAcl;
+	private double yAcl;
+	private double zAcl;
 
 	public Entity() {
 		this.x=0;
@@ -32,7 +32,7 @@ public abstract class Entity implements Locatable, Comparable<Entity> {
 		this.z = z;
 	}
 
-	public Entity(int x, int y, int z, int xVel, int yVel, int zVel, int xAcl, int yAcl, int zAcl) {
+	public Entity(int x, int y, int z, double xVel, double yVel, double zVel, double xAcl, double yAcl, double zAcl) {
 		super();
 		this.x = x;
 		this.y = y;
@@ -77,56 +77,56 @@ public abstract class Entity implements Locatable, Comparable<Entity> {
 		setyVel(yVel+yAcl);
 		setzVel(zVel+zAcl);
 		
-		setX(x+xVel);
-		setY(y+yVel);
-		setZ(z+zVel);
+		setX((int)(x+xVel));
+		setY((int)(y+yVel));
+		setZ((int)(z+zVel));
 	}
 
-	public int getxVel() {
+	public double getxVel() {
 		return xVel;
 	}
 
-	public void setxVel(int xVel) {
-		this.xVel = xVel;
+	public void setxVel(double d) {
+		this.xVel = d;
 	}
 
-	public int getyVel() {
+	public double getyVel() {
 		return yVel;
 	}
 
-	public void setyVel(int yVel) {
+	public void setyVel(double yVel) {
 		this.yVel = yVel;
 	}
 
-	public int getzVel() {
+	public double getzVel() {
 		return zVel;
 	}
 
-	public void setzVel(int zVel) {
+	public void setzVel(double zVel) {
 		this.zVel = zVel;
 	}
 
-	public int getxAcl() {
+	public double getxAcl() {
 		return xAcl;
 	}
 
-	public void setxAcl(int xAcl) {
+	public void setxAcl(double xAcl) {
 		this.xAcl = xAcl;
 	}
 
-	public int getyAcl() {
+	public double getyAcl() {
 		return yAcl;
 	}
 
-	public void setyAcl(int yAcl) {
+	public void setyAcl(double yAcl) {
 		this.yAcl = yAcl;
 	}
 
-	public int getzAcl() {
+	public double getzAcl() {
 		return zAcl;
 	}
 
-	public void setzAcl(int zAcl) {
+	public void setzAcl(double zAcl) {
 		this.zAcl = zAcl;
 	}
 }
