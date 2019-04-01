@@ -56,12 +56,14 @@ public class Paddle extends Block {
 	// add the other Paddle constructors
 
 	public void moveUpAndDraw(Graphics window) {
-		setX(getY() + speed);
+		drawOver(window);
+		setY(getY() + speed);
 		draw(window);
 	}
 
 	public void moveDownAndDraw(Graphics window) {
-		setX(getY() - speed);
+		drawOver(window);
+		setY(getY() - speed);
 		draw(window);
 
 	}
