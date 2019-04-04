@@ -74,13 +74,14 @@ public class Pong extends Canvas implements KeyListener, Runnable {
 			ball.setX(400);
 			ball.setY(300);
 		}
+		//System.out.println(ball.getX() + " x | y " + ball.getY());
 
 		// see if the ball hits the top or bottom wall
-		if (!(ball.getY() <= 5)) {
-			ball.setySpeed(-ball.getX());
+		if (ball.getY() <= -5) {
+			ball.setySpeed(-ball.getY());
 		}
 		if (ball.getY() >= 595) {
-			ball.setySpeed(-ball.getX());
+			ball.setySpeed(-ball.getY());
 		}
 
 		// see if the ball hits the left paddle
@@ -95,17 +96,26 @@ public class Pong extends Canvas implements KeyListener, Runnable {
 		}
 		// see if the paddles need to be moved
 
+		System.out.println(leftPaddle.getX() + " x | y " + leftPaddle.getY());
 		if (keys[0]) {
-			leftPaddle.moveDownAndDraw(window);
+			if (leftPaddle.getY() <= 595 || leftPaddle.getY() < 0) {
+				leftPaddle.moveDownAndDraw(window);
+			}
 		}
 		if (keys[1]) {
-			leftPaddle.moveUpAndDraw(window);
+			if (leftPaddle.getY() >= 5) {
+				leftPaddle.moveUpAndDraw(window);
+			}
 		}
 		if (keys[2]) {
-			rightPaddle.moveDownAndDraw(window);
+			if (rightPaddle.getY() <= 595) {
+				rightPaddle.moveDownAndDraw(window);
+			}
 		}
 		if (keys[3]) {
-			rightPaddle.moveUpAndDraw(window);
+			if (rightPaddle.getY() >= 5) {
+				rightPaddle.moveUpAndDraw(window);
+			}
 		}
 
 		// twoDGraph.drawImage(back, null, 0, 0);

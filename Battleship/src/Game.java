@@ -13,9 +13,8 @@ public class Game extends Canvas implements KeyListener, Runnable, MouseListener
 
 	List<Entity> entitys;
 	List<GameLogic> logic;
-	Click lastClick;
 	private int tick = 0;
-	
+
 	private List<Entity> entitysToRemove = new ArrayList<>();
 
 	HashMap<Character, Boolean> keys = new HashMap<>();
@@ -23,7 +22,6 @@ public class Game extends Canvas implements KeyListener, Runnable, MouseListener
 	private final boolean DEBUGGING = true;
 
 	public Game() {
-		lastClick = new Click(-1, -1, -1000);
 		this.addKeyListener(this);
 		this.addMouseListener(this);
 		entitys = new ArrayList<>();
@@ -33,25 +31,7 @@ public class Game extends Canvas implements KeyListener, Runnable, MouseListener
 			addGameLogic(new TestLogic(this));
 		}
 	}
-	
-	private void removeEs() {
-		for(Object e : entitysToRemove) {
-			entitys.remove(e);
-		}
-	}
-	
-	public void addToRemoveQue(Entity e) {
-		entitysToRemove.add(e);
-	}
-	
-	public Click getClick() {
-		return lastClick;
-	}
-	
-	public void setClick(Click c) {
-		this.lastClick = c;
-	}
-	
+
 	public int getTick() {
 		return tick;
 	}
@@ -64,14 +44,12 @@ public class Game extends Canvas implements KeyListener, Runnable, MouseListener
 	}
 
 	public void update() {
-		//do click add here
 		for (Entity e : entitys) {
 			e.update(this);
 		}
 		for (GameLogic l : logic) {
 			l.update(this);
 		}
-		removeEs();
 		tick += 1;
 	}
 
@@ -121,32 +99,35 @@ public class Game extends Canvas implements KeyListener, Runnable, MouseListener
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		System.out.println("click");
-		setClick(new Click(e.getX(), e.getY(), tick));  
+		for(Entity ent : entitys) {
+			if (ent.getClass() == Player1Ship.class) {
+				((Player1Ship)ent).fire(new Click(e.getX(), e.getY(), tick),this);
+			}
+		}
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

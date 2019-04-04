@@ -34,15 +34,11 @@ public class Player1Ship extends Ship{
 			setyAcl(0);
 			setxAcl(0);
 		}
-		
-		if(game.getClick().getTick() - game.getTick() < 2 && game.getClick().getTick() - game.getTick() > -2) {
-			fire(game);
-		}
 		super.update(game);
 	}
 	
-	private void fire(Game game) {
-		double ratio = game.getClick().getY()-getY()/game.getClick().getX()-getX();
+	public void fire(Click c, Game game) {
+		double ratio = (c.getY()-getY())/(c.getX()-getX());
 		game.addEntity(new Shell(getX(), getY(), 0, 2, Math.atan(ratio)));
 		
 	}
