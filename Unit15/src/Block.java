@@ -19,15 +19,13 @@ public class Block implements Locatable {
 	}
 	
 	public Block(int x, int y) {
-		setX(x);
-		setY(y);
+		setPos(x, y);
 	}
 
 	public Block(int x, int y, int height, int width, Color color) {
-		this.xPos = x;
-		this.yPos = y;
-		this.width = width;
-		this.height = height;
+		setPos(x, y);
+		setWidth(width);
+		setHeight(height);
 		setColor(color);
 
 	}

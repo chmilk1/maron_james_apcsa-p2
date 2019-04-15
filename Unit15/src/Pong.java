@@ -21,13 +21,15 @@ public class Pong extends Canvas implements KeyListener, Runnable {
 	private Paddle rightPaddle;
 	private boolean[] keys;
 	private BufferedImage back;
+	private int countDown = -1;
+	private final int RESET_BALL_FRAMES = 120;
 	Random rand = new Random();
 
 	public Pong() {
 		// set up all variables related to the game
-		ball = new Ball(200, 200, 40, 40, Color.black, 1, 1);
-		leftPaddle = new Paddle(10, 200, 80, 20, Color.RED, 7);
-		rightPaddle = new Paddle(750, 200, 80, 20, Color.BLUE, 7);
+		ball = new Ball(200, 200, 40, 40, Color.black, 2, 2);
+		leftPaddle = new Paddle(60, 200, 80, 20, Color.RED, 7);
+		rightPaddle = new Paddle(700, 200, 80, 20, Color.BLUE, 7);
 
 		keys = new boolean[4];
 
@@ -69,52 +71,67 @@ public class Pong extends Canvas implements KeyListener, Runnable {
 
 		// see if ball hits left wall or right wall
 		if (!(ball.getX() >= 10 && ball.getX() <= 760)) {
+			ball.drawOver(window);
 			ball.setxSpeed(0);
 			ball.setySpeed(0);
 			ball.setX(400);
 			ball.setY(300);
+			countDown = RESET_BALL_FRAMES;
+		}
+		
+		if(countDown > 0) {
+			countDown--;
+		}
+		if(countDown == 0) {
+			ball.setxSpeed(-2);
+			ball.setySpeed(-2);
+			countDown = -1;
 		}
 		//System.out.println(ball.getX() + " x | y " + ball.getY());
 
 		// see if the ball hits the top or bottom wall
-		if (ball.getY() <= -5) {
-			ball.setySpeed(-ball.getY());
+		if (ball.getY() <= 40) {
+			ball.setySpeed(-ball.getySpeed());
 		}
-		if (ball.getY() >= 595) {
-			ball.setySpeed(-ball.getY());
+		if (ball.getY() >= 560) {
+			ball.setySpeed(-ball.getySpeed());
 		}
 
 		// see if the ball hits the left paddle
-		if (ball.getX() < 30 && ball.getY() < leftPaddle.getY() && ball.getY() < leftPaddle.getHeight()) {
-			ball.setxSpeed(-1 - rand.nextInt(3));
+		if (ball.getX() < leftPaddle.getX()
+				&& ball.getY() < leftPaddle.getY() && ball.getY() > leftPaddle.getY() + leftPaddle.getHeight()) {
+			ball.setxSpeed(-(rand.nextInt(4) + 1));
 			ball.setySpeed(rand.nextBoolean() ? rand.nextInt(4) : -rand.nextInt(4));
+			System.out.println("left hit!");
 		}
 		// see if the ball hits the right paddle
-		if (ball.getX() > 740 && ball.getY() < rightPaddle.getY() && ball.getY() < rightPaddle.getHeight()) {
-			ball.setxSpeed(-1 - rand.nextInt(3));
+		if (ball.getX() + ball.getWidth() > rightPaddle.getX()
+				&& ball.getY() < rightPaddle.getY() && ball.getY() < leftPaddle.getY() + rightPaddle.getHeight()) {
+			ball.setxSpeed((rand.nextInt(4)+1));
 			ball.setySpeed(rand.nextBoolean() ? rand.nextInt(4) : -rand.nextInt(4));
+			System.out.println("right hit!");
 		}
 		// see if the paddles need to be moved
 
-		System.out.println(leftPaddle.getX() + " x | y " + leftPaddle.getY());
+		//System.out.println(leftPaddle.getX() + " x | y " + leftPaddle.getY());
 		if (keys[0]) {
 			if (leftPaddle.getY() <= 595 || leftPaddle.getY() < 0) {
-				leftPaddle.moveDownAndDraw(window);
+				leftPaddle.moveUpAndDraw(window);
 			}
 		}
 		if (keys[1]) {
 			if (leftPaddle.getY() >= 5) {
-				leftPaddle.moveUpAndDraw(window);
+				leftPaddle.moveDownAndDraw(window);
 			}
 		}
 		if (keys[2]) {
 			if (rightPaddle.getY() <= 595) {
-				rightPaddle.moveDownAndDraw(window);
+				rightPaddle.moveUpAndDraw(window);
 			}
 		}
 		if (keys[3]) {
 			if (rightPaddle.getY() >= 5) {
-				rightPaddle.moveUpAndDraw(window);
+				rightPaddle.moveDownAndDraw(window);
 			}
 		}
 

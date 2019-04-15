@@ -42,6 +42,7 @@ public class Paddle extends Block {
 	
 	public Paddle(int x, int y, int height, int width, Color c, int speed) {
 		super(x, y, height, width, c);
+		setX(x);
 		setSpeed(speed);
 	}
 
@@ -57,13 +58,13 @@ public class Paddle extends Block {
 
 	public void moveUpAndDraw(Graphics window) {
 		drawOver(window);
-		setY(getY() + speed);
+		setY(getY() - speed);
 		draw(window);
 	}
 
 	public void moveDownAndDraw(Graphics window) {
 		drawOver(window);
-		setY(getY() - speed);
+		setY(getY() + speed);
 		draw(window);
 
 	}
