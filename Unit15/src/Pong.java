@@ -22,7 +22,13 @@ public class Pong extends Canvas implements KeyListener, Runnable {
 	private boolean[] keys;
 	private BufferedImage back;
 	private int countDown = -1;
+	private int ballHitCountdown = -1;
 	private final int RESET_BALL_FRAMES = 120;
+	private final int HIT_IGNORE_FRAMES = 40;
+	private double speedMultiplyer = 1;
+	private boolean ballHit;
+	private int leftScore = 0;
+	private int rightScore = 0;
 	Random rand = new Random();
 
 	public Pong() {
@@ -64,30 +70,47 @@ public class Pong extends Canvas implements KeyListener, Runnable {
 		// ball.moveAndDraw(graphToBack);
 		// leftPaddle.draw(graphToBack);
 		// rightPaddle.draw(graphToBack);
+		
+		window.setColor(Color.white);
+		window.fillRect(260, 40, 400, 400);
+		window.setColor(Color.BLACK);
+		window.drawString("R " + rightScore + " | " + leftScore + " B", 300, 50);
 
 		ball.moveAndDraw(window);
 		leftPaddle.draw(window);
 		rightPaddle.draw(window);
+		
 
 		// see if ball hits left wall or right wall
-		if (!(ball.getX() >= 10 && ball.getX() <= 760)) {
+		if (ball.getX() <= 10) {
 			ball.drawOver(window);
 			ball.setxSpeed(0);
 			ball.setySpeed(0);
 			ball.setX(400);
 			ball.setY(300);
+			leftScore += 1;
 			countDown = RESET_BALL_FRAMES;
 		}
-		
-		if(countDown > 0) {
+		if (ball.getX() >= 760) {
+			ball.drawOver(window);
+			ball.setxSpeed(0);
+			ball.setySpeed(0);
+			ball.setX(400);
+			ball.setY(300);
+			rightScore += 1;
+			countDown = RESET_BALL_FRAMES;
+		}
+
+		if (countDown > 0) {
 			countDown--;
 		}
-		if(countDown == 0) {
-			ball.setxSpeed(-2);
-			ball.setySpeed(-2);
+		if (countDown == 0) {
+			ball.setxSpeed(rand.nextBoolean() ? rand.nextInt(4) + 1 : -rand.nextInt(4) - 1);
+			ball.setySpeed(rand.nextBoolean() ? rand.nextInt(4) + 1 : -rand.nextInt(4) - 1);
 			countDown = -1;
+			speedMultiplyer = 1;
 		}
-		//System.out.println(ball.getX() + " x | y " + ball.getY());
+		// System.out.println(ball.getX() + " x | y " + ball.getY());
 
 		// see if the ball hits the top or bottom wall
 		if (ball.getY() <= 40) {
@@ -98,39 +121,58 @@ public class Pong extends Canvas implements KeyListener, Runnable {
 		}
 
 		// see if the ball hits the left paddle
-		if (ball.getX() < leftPaddle.getX()
-				&& ball.getY() < leftPaddle.getY() && ball.getY() > leftPaddle.getY() + leftPaddle.getHeight()) {
-			ball.setxSpeed(-(rand.nextInt(4) + 1));
-			ball.setySpeed(rand.nextBoolean() ? rand.nextInt(4) : -rand.nextInt(4));
-			System.out.println("left hit!");
+		if (ball.getX() < leftPaddle.getX() + leftPaddle.getWidth()
+				&& ball.getY() + ball.getHeight() > leftPaddle.getY()
+				&& leftPaddle.getY() + leftPaddle.getHeight() > ball.getY() && !ballHit) {
+			ball.setxSpeed((int) ((rand.nextInt(1) + 2) * speedMultiplyer));
+			ball.setySpeed(rand.nextBoolean() ? rand.nextInt(3) +1 : -rand.nextInt(3)-1);
+
+			speedMultiplyer += .2;
+			// System.out.println("left hit!");
+
+			ballHit = true;
+			ballHitCountdown = HIT_IGNORE_FRAMES;
 		}
 		// see if the ball hits the right paddle
-		if (ball.getX() + ball.getWidth() > rightPaddle.getX()
-				&& ball.getY() < rightPaddle.getY() && ball.getY() < leftPaddle.getY() + rightPaddle.getHeight()) {
-			ball.setxSpeed((rand.nextInt(4)+1));
-			ball.setySpeed(rand.nextBoolean() ? rand.nextInt(4) : -rand.nextInt(4));
-			System.out.println("right hit!");
+		if (ball.getX() + ball.getWidth() > rightPaddle.getX() && ball.getY() + ball.getHeight() > rightPaddle.getY()
+				&& rightPaddle.getY() + rightPaddle.getHeight() > ball.getY() && !ballHit) {
+			ball.setxSpeed((int) (-(rand.nextInt(1) + 2) * speedMultiplyer));
+			ball.setySpeed(rand.nextBoolean() ? rand.nextInt(3) + 1 : -rand.nextInt(3) - 1);
+
+			speedMultiplyer += .2;
+			// System.out.println("right hit!");
+
+			ballHit = true;
+			ballHitCountdown = HIT_IGNORE_FRAMES;
+		}
+
+		if (ballHitCountdown > 0) {
+			ballHitCountdown--;
+		}
+		if (ballHitCountdown == 0) {
+			ballHit = false;
+			ballHitCountdown = -1;
 		}
 		// see if the paddles need to be moved
 
-		//System.out.println(leftPaddle.getX() + " x | y " + leftPaddle.getY());
+		// System.out.println(leftPaddle.getX() + " x | y " + leftPaddle.getY());
 		if (keys[0]) {
-			if (leftPaddle.getY() <= 595 || leftPaddle.getY() < 0) {
+			if (leftPaddle.getY() > 0) {
 				leftPaddle.moveUpAndDraw(window);
 			}
 		}
 		if (keys[1]) {
-			if (leftPaddle.getY() >= 5) {
+			if (leftPaddle.getY() < 600 - leftPaddle.getHeight()) {
 				leftPaddle.moveDownAndDraw(window);
 			}
 		}
 		if (keys[2]) {
-			if (rightPaddle.getY() <= 595) {
+			if (rightPaddle.getY() > 0) {
 				rightPaddle.moveUpAndDraw(window);
 			}
 		}
 		if (keys[3]) {
-			if (rightPaddle.getY() >= 5) {
+			if (rightPaddle.getY() < 600 - leftPaddle.getHeight()) {
 				rightPaddle.moveDownAndDraw(window);
 			}
 		}
