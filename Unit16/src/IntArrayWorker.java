@@ -15,6 +15,14 @@ public class IntArrayWorker
    * Method to return the total 
    * @return the total of the values in the array
    */
+  public int getCount(int x) {
+	  int count = 0;
+	  for(int[] i : matrix) {
+		  
+	  }
+	  return count;
+  }
+  
   public int getTotal()
   {
     int total = 0;

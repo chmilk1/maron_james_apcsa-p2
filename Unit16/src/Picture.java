@@ -190,7 +190,6 @@ public class Picture extends SimplePicture
     this.write("collage.jpg");
   }
   
-  
   /** Method to show large changes in color 
     * @param edgeDist the distance for finding edges
     */
@@ -223,7 +222,7 @@ public class Picture extends SimplePicture
    */
   public static void main(String[] args) 
   {
-    Picture beach = new Picture("beach.jpg");
+    Picture beach = new Picture("H:\\workspace\\Unit16\\src\\images\\george.jpg");
     beach.explore();
     beach.zeroBlue();
     beach.explore();

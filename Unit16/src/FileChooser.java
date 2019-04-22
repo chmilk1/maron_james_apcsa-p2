@@ -109,7 +109,7 @@ public class FileChooser
         Class currClass = Class.forName("FileChooser");
         URL classURL = currClass.getResource("FileChooser.class");
         //URL fileURL = new URL(classURL,"../images/");
-        URL fileURL = new URL("H://workspace/Unit16/src/images");
+        URL fileURL = new URL("H:\\workspace\\Unit16\\bin\\images");
         directory = fileURL.getPath();
         directory = URLDecoder.decode(directory, "UTF-8");
         dirFile = new File(directory);
