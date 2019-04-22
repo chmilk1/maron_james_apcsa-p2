@@ -65,7 +65,7 @@ public class PictureTester
     //testNegate();
     //testGrayscale();
     //testFixUnderwater();
-    testMirrorVertical();
+    //testMirrorVertical();
     //testMirrorTemple();
     //testMirrorArms();
     //testMirrorGull();
@@ -81,4 +81,28 @@ public class PictureTester
     //testClearBlueOverValue(200);
     //testGetAverageForColumn(0);
   }
+
+private static void testGrayscale() {
+	Picture pic = new Picture("H:\\workspace\\Unit16\\bin\\images\\barbaraS.jpg");
+	pic.explore();
+	pic.grayScale();
+    pic.explore();
+	
+}
+
+private static void testNegate() {
+	Picture pic = new Picture("H:\\workspace\\Unit16\\bin\\images\\robot.jpg");
+	pic.explore();
+	pic.negate();
+    pic.explore();
+	
+}
+
+private static void testKeepOnlyBlue() {
+	Picture beach = new Picture("H:\\workspace\\Unit16\\bin\\images\\kitten2.jpg");
+    beach.explore();
+    beach.modifyColors(0, 0, 1);
+    beach.explore();
+	
+}
 }
