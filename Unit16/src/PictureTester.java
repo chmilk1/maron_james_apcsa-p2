@@ -66,14 +66,18 @@ public class PictureTester
     //testGrayscale();
     //testFixUnderwater();
     //testMirrorVertical();
+	//testMirrorHorizontal();
     //testMirrorTemple();
-    //testMirrorArms();
+    testMirrorArms();
     //testMirrorGull();
     //testMirrorDiagonal();
     //testCollage();
     //testCopy();
     //testEdgeDetection();
     //testEdgeDetection2();
+    
+    //^Due: Thursday, 25
+    
     //testChromakey();
     //testEncodeAndDecode();
     //testGetCountRedOverValue(250);
@@ -81,6 +85,46 @@ public class PictureTester
     //testClearBlueOverValue(200);
     //testGetAverageForColumn(0);
   }
+
+private static void testMirrorArms() {
+	Picture beach = new Picture("H:\\workspace\\Unit16\\bin\\images\\snowman.jpg");
+    beach.explore();
+    beach.mirrorPart(-1, 170, 100, 200, 100, 200);;
+    beach.explore();
+}
+
+private static void testMirrorHorizontal() {
+	Picture beach = new Picture("H:\\workspace\\Unit16\\bin\\images\\swan.jpg");
+    beach.explore();
+    beach.mirrorHorizontal();
+    beach.explore();
+	
+}
+
+private static void testFixUnderwater() {
+	Picture beach = new Picture("H:\\workspace\\Unit16\\bin\\images\\water.jpg");
+    beach.explore();
+    //beach.modifyColors(1.75, .5, .5);
+    beach.modifyColors(3, .9, .9);
+    beach.explore();
+	
+}
+
+private static void testKeepOnlyGreen() {
+	Picture beach = new Picture("H:\\workspace\\Unit16\\bin\\images\\kitten2.jpg");
+    beach.explore();
+    beach.modifyColors(0, 1, 0);
+    beach.explore();
+	
+}
+
+private static void testKeepOnlyRed() {
+	Picture beach = new Picture("H:\\workspace\\Unit16\\bin\\images\\kitten2.jpg");
+    beach.explore();
+    beach.modifyColors(1, 0, 0);
+    beach.explore();
+	
+}
 
 private static void testGrayscale() {
 	Picture pic = new Picture("H:\\workspace\\Unit16\\bin\\images\\barbaraS.jpg");

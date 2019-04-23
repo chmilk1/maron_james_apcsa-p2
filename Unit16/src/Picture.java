@@ -143,6 +143,25 @@ public class Picture extends SimplePicture {
 				leftPixel = pixels[row][col];
 				rightPixel = pixels[row][mirrorPoint - col + mirrorPoint];
 				rightPixel.setColor(leftPixel.getColor());
+				count++;
+			}
+		}
+		System.out.println(count);
+	}
+	
+	public void mirrorPart(int mirrorPointCol, int mirrorPointRow, int rowStart, int rowEnd,int colStart, int colEnd) {
+		Pixel leftPixel = null;
+		Pixel rightPixel = null;
+		Pixel[][] pixels = this.getPixels2D();
+
+		// loop through the rows
+		for (int row = rowStart; row < (mirrorPointRow >= 0 ? mirrorPointRow : colEnd); row++) {
+			// loop from 13 to just before the mirror point
+			for (int col = colStart; col < (mirrorPointCol >= 0 ? mirrorPointCol : colEnd); col++) {
+
+				leftPixel = pixels[row][col];
+				rightPixel = pixels[(mirrorPointRow >= 0 ? mirrorPointRow - col + mirrorPointRow : row)][(mirrorPointCol >= 0 ? mirrorPointCol - col + mirrorPointCol : col)];
+				rightPixel.setColor(leftPixel.getColor());
 			}
 		}
 	}
@@ -224,6 +243,15 @@ public class Picture extends SimplePicture {
 		beach.explore();
 	}
 
+	public void mirrorHorizontal() {
+		Pixel[][] pixels = this.getPixels2D();
+		for(int y = 0; y < pixels.length; y++) {
+			for(int x = 0; x < pixels[y].length; x++) {
+				pixels[pixels.length-y-1][x].setColor(pixels[y][x].getColor());
+			}
+		}
+	}
+	
 	public void negate() {
 		Pixel[][] pixels = this.getPixels2D();
 		for (Pixel[] rowArray : pixels) {
