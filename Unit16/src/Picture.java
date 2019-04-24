@@ -29,8 +29,7 @@ public class Picture extends SimplePicture {
 	/**
 	 * Constructor that takes a file name and creates the picture
 	 * 
-	 * @param fileName
-	 *            the name of the file to create the picture from
+	 * @param fileName the name of the file to create the picture from
 	 */
 	public Picture(String fileName) {
 		// let the parent class handle this fileName
@@ -40,10 +39,8 @@ public class Picture extends SimplePicture {
 	/**
 	 * Constructor that takes the width and height
 	 * 
-	 * @param height
-	 *            the height of the desired picture
-	 * @param width
-	 *            the width of the desired picture
+	 * @param height the height of the desired picture
+	 * @param width  the width of the desired picture
 	 */
 	public Picture(int height, int width) {
 		// let the parent class handle this width and height
@@ -53,8 +50,7 @@ public class Picture extends SimplePicture {
 	/**
 	 * Constructor that takes a picture and creates a copy of that picture
 	 * 
-	 * @param copyPicture
-	 *            the picture to copy
+	 * @param copyPicture the picture to copy
 	 */
 	public Picture(Picture copyPicture) {
 		// let the parent class do the copy
@@ -64,8 +60,7 @@ public class Picture extends SimplePicture {
 	/**
 	 * Constructor that takes a buffered image
 	 * 
-	 * @param image
-	 *            the buffered image to use
+	 * @param image the buffered image to use
 	 */
 	public Picture(BufferedImage image) {
 		super(image);
@@ -148,8 +143,8 @@ public class Picture extends SimplePicture {
 		}
 		System.out.println(count);
 	}
-	
-	public void mirrorPart(int mirrorPointCol, int mirrorPointRow, int rowStart, int rowEnd,int colStart, int colEnd) {
+
+	public void mirrorPart(int mirrorPointCol, int mirrorPointRow, int rowStart, int rowEnd, int colStart, int colEnd) {
 		Pixel leftPixel = null;
 		Pixel rightPixel = null;
 		Pixel[][] pixels = this.getPixels2D();
@@ -160,7 +155,8 @@ public class Picture extends SimplePicture {
 			for (int col = colStart; col < (mirrorPointCol >= 0 ? mirrorPointCol : colEnd); col++) {
 
 				leftPixel = pixels[row][col];
-				rightPixel = pixels[(mirrorPointRow >= 0 ? mirrorPointRow - col + mirrorPointRow : row)][(mirrorPointCol >= 0 ? mirrorPointCol - col + mirrorPointCol : col)];
+				rightPixel = pixels[(mirrorPointRow >= 0 ? mirrorPointRow - col + mirrorPointRow
+						: row)][(mirrorPointCol >= 0 ? mirrorPointCol - col + mirrorPointCol : col)];
 				rightPixel.setColor(leftPixel.getColor());
 			}
 		}
@@ -170,12 +166,9 @@ public class Picture extends SimplePicture {
 	 * copy from the passed fromPic to the specified startRow and startCol in the
 	 * current picture
 	 * 
-	 * @param fromPic
-	 *            the picture to copy from
-	 * @param startRow
-	 *            the start row to copy to
-	 * @param startCol
-	 *            the start col to copy to
+	 * @param fromPic  the picture to copy from
+	 * @param startRow the start row to copy to
+	 * @param startCol the start col to copy to
 	 */
 	public void copy(Picture fromPic, int startRow, int startCol) {
 		Pixel fromPixel = null;
@@ -212,8 +205,7 @@ public class Picture extends SimplePicture {
 	/**
 	 * Method to show large changes in color
 	 * 
-	 * @param edgeDist
-	 *            the distance for finding edges
+	 * @param edgeDist the distance for finding edges
 	 */
 	public void edgeDetection(int edgeDist) {
 		Pixel leftPixel = null;
@@ -245,20 +237,20 @@ public class Picture extends SimplePicture {
 
 	public void mirrorHorizontal() {
 		Pixel[][] pixels = this.getPixels2D();
-		for(int y = 0; y < pixels.length; y++) {
-			for(int x = 0; x < pixels[y].length; x++) {
-				pixels[pixels.length-y-1][x].setColor(pixels[y][x].getColor());
+		for (int y = 0; y < pixels.length; y++) {
+			for (int x = 0; x < pixels[y].length; x++) {
+				pixels[pixels.length - y - 1][x].setColor(pixels[y][x].getColor());
 			}
 		}
 	}
-	
+
 	public void negate() {
 		Pixel[][] pixels = this.getPixels2D();
 		for (Pixel[] rowArray : pixels) {
 			for (Pixel pixelObj : rowArray) {
-				pixelObj.setBlue(255-pixelObj.getBlue());
-				pixelObj.setGreen(255-pixelObj.getGreen());
-				pixelObj.setRed(255-pixelObj.getRed());
+				pixelObj.setBlue(255 - pixelObj.getBlue());
+				pixelObj.setGreen(255 - pixelObj.getGreen());
+				pixelObj.setRed(255 - pixelObj.getRed());
 			}
 		}
 	}
@@ -267,13 +259,13 @@ public class Picture extends SimplePicture {
 		Pixel[][] pixels = this.getPixels2D();
 		for (Pixel[] rowArray : pixels) {
 			for (Pixel pixelObj : rowArray) {
-				int avg = (pixelObj.getBlue()+pixelObj.getGreen()+pixelObj.getRed())/3;
+				int avg = (pixelObj.getBlue() + pixelObj.getGreen() + pixelObj.getRed()) / 3;
 				pixelObj.setBlue(avg);
 				pixelObj.setGreen(avg);
 				pixelObj.setRed(avg);
 			}
 		}
-		
+
 	}
 
 } // this } is the end of class Picture, put all new methods before this
