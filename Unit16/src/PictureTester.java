@@ -52,6 +52,9 @@ public class PictureTester {
 		// uncomment a call here to run a test
 		// and comment out the ones you don't want
 		// to run
+		
+		//easy
+		
 		// testZeroBlue();
 		// testKeepOnlyBlue();
 		// testKeepOnlyRed();
@@ -59,17 +62,24 @@ public class PictureTester {
 		// testNegate();
 		// testGrayscale();
 		// testFixUnderwater();
+		
+		//medum
+		
 		// testMirrorVertical();
 		// testMirrorHorizontal();
 		// testMirrorTemple();
 		// testMirrorArms();
 		// testMirrorGull();
 		// testMirrorDiagonal();
+		
+		//hard
+		
 		// testCollage();
 		// testCopy();
-		 testEdgeDetection(); //their method
-		 testEdgeDetection2(); //my method
+		// testEdgeDetection(); //their method
+		// testEdgeDetection2(); //my method
 
+		// Finished
 		// ^Due: Thursday, 25
 
 		// testChromakey();
