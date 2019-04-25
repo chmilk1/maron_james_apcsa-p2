@@ -103,6 +103,53 @@ public class Picture extends SimplePicture {
 			}
 		}
 	}
+	
+	public void jamesEdgeDetect() {
+		Picture edited = new Picture(this);
+		Pixel[][] OurPixels = this.getPixels2D();
+		Pixel[][] theirPixels = edited.getPixels2D();
+		for(int row = 0; row < OurPixels.length; row++) {
+			for(int col = 0; col < OurPixels[0].length; col++) {
+				if(isEdge(OurPixels, row, col)) {
+					theirPixels[row][col].setColor(Color.BLACK);
+				} else {
+					theirPixels[row][col].setColor(Color.WHITE);
+				}
+			}
+		}
+		this.copyPicture(edited);
+		
+	}
+	
+	//change this to change how much edge is detected
+	public static final double EDGE_DIFF = 20;
+	public boolean isEdge(Pixel[][] pixeles, int row, int col) {
+		//up
+		if(row > 0 && getPrecentDiff(pixeles[row][col], pixeles[row-1][col]) >= EDGE_DIFF) {
+			return true;
+		}
+		//down
+		else if(row < pixeles.length-1 && getPrecentDiff(pixeles[row][col], pixeles[row+1][col]) >= EDGE_DIFF) {
+			return true;
+		}
+		//left
+		else if(col > 0 && getPrecentDiff(pixeles[row][col], pixeles[row][col-1]) >= EDGE_DIFF) {
+			return true;
+		}
+		//right
+		else if(col < pixeles[0].length-1 && getPrecentDiff(pixeles[row][col], pixeles[row][col+1]) >= EDGE_DIFF) {
+			return true;
+		}
+		return false;
+		
+	}
+	
+	public double getPrecentDiff(Pixel mainPix, Pixel edgePix) {
+		double red = Math.abs((mainPix.getRed()+1)-(edgePix.getRed()+1));
+		double blue = Math.abs((mainPix.getBlue()+1)-(edgePix.getBlue()+1));
+		double green = Math.abs((mainPix.getGreen()+1)-(edgePix.getGreen()+1));
+		return(Math.max(red, Math.max(blue, green)));
+	}
 
 	/**
 	 * Method that mirrors the picture around a vertical mirror in the center of the
@@ -127,7 +174,8 @@ public class Picture extends SimplePicture {
 		Pixel leftPixel = null;
 		Pixel rightPixel = null;
 		int width = pixels[0].length;
-		for(int middle = 0; middle < width; middle++) {
+		int height = pixels.length;
+		for(int middle = 0; middle < width && middle < height; middle++) {
 			for(int sec = 0; sec < middle && sec < width; sec++) {
 				leftPixel = pixels[middle][sec];
 				rightPixel = pixels[sec][middle];
@@ -222,8 +270,8 @@ public class Picture extends SimplePicture {
 
 	/** Method to create a collage of several pictures */
 	public void createCollage() {
-		Picture flower1 = new Picture("flower1.jpg");
-		Picture flower2 = new Picture("flower2.jpg");
+		Picture flower1 = new Picture("src\\images\\flower1.jpg");
+		Picture flower2 = new Picture("src\\images\\flower2.jpg");
 		this.copy(flower1, 0, 0);
 		this.copy(flower2, 100, 0);
 		this.copy(flower1, 200, 0);
@@ -233,7 +281,7 @@ public class Picture extends SimplePicture {
 		this.copy(flower1, 400, 0);
 		this.copy(flower2, 500, 0);
 		this.mirrorVertical();
-		this.write("collage.jpg");
+		this.write("src\\images\\collage.jpg");
 	}
 
 	/**

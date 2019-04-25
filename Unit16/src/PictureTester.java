@@ -64,11 +64,11 @@ public class PictureTester {
 		// testMirrorTemple();
 		// testMirrorArms();
 		// testMirrorGull();
-		testMirrorDiagonal();
+		// testMirrorDiagonal();
 		// testCollage();
 		// testCopy();
-		testEdgeDetection();
-		testEdgeDetection2();
+		 testEdgeDetection(); //their method
+		 testEdgeDetection2(); //my method
 
 		// ^Due: Thursday, 25
 
@@ -79,7 +79,7 @@ public class PictureTester {
 		// testClearBlueOverValue(200);
 		// testGetAverageForColumn(0);
 	}
-
+	//src\images\
 	private static void testMirrorDiagonal() {
 		// TODO Auto-generated method stub
 		Picture beach = new Picture("src\\images\\koala.jpg");
@@ -92,10 +92,14 @@ public class PictureTester {
 		Picture beach = new Picture("src\\images\\seagull.jpg");
 		beach.explore();
 		beach.mirrorPart(false, 232, 333, 229, 345);
+		beach.explore();
 	}
 
 	private static void testEdgeDetection2() {
-		// TODO Auto-generated method stub
+		Picture beach = new Picture("src\\images\\swan.jpg");
+		beach.explore();
+		beach.jamesEdgeDetect();
+		beach.explore();
 
 	}
 
