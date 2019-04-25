@@ -170,6 +170,15 @@ public class Picture extends SimplePicture {
 	 * @param startRow the start row to copy to
 	 * @param startCol the start col to copy to
 	 */
+	public void copy(int rowStart, int rowEnd, int colStart, int colEnd, int rowTo, int colTo) {
+		Pixel[][] toPixels = this.getPixels2D();
+		for(int row = 0; row < rowEnd-rowStart; row++) {
+			for(int col = 0; col < colEnd-rowStart; col++) {
+				toPixels[row+rowTo][col+colTo].setColor(toPixels[row+rowStart][col+colStart].getColor());
+			}
+		}
+	}
+	
 	public void copy(Picture fromPic, int startRow, int startCol) {
 		Pixel fromPixel = null;
 		Pixel toPixel = null;

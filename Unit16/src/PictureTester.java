@@ -46,7 +46,7 @@ public class PictureTester
   /** Method to test edgeDetection */
   public static void testEdgeDetection()
   {
-    Picture swan = new Picture("H:\\workspace\\Unit16\\bin\\images\\swan.jpg");
+    Picture swan = new Picture("src\\\\images\\\\swan.jpg");
     swan.edgeDetection(10);
     swan.explore();
   }
@@ -68,13 +68,13 @@ public class PictureTester
     //testMirrorVertical();
 	//testMirrorHorizontal();
     //testMirrorTemple();
-    testMirrorArms();
+    //testMirrorArms();
     //testMirrorGull();
     //testMirrorDiagonal();
     //testCollage();
     //testCopy();
-    //testEdgeDetection();
-    //testEdgeDetection2();
+    testEdgeDetection();
+    testEdgeDetection2();
     
     //^Due: Thursday, 25
     
@@ -85,6 +85,19 @@ public class PictureTester
     //testClearBlueOverValue(200);
     //testGetAverageForColumn(0);
   }
+
+private static void testEdgeDetection2() {
+	// TODO Auto-generated method stub
+	
+}
+
+private static void testCopy() {
+	Picture beach = new Picture("src\\images\\swan.jpg");
+    beach.explore();
+    beach.copy(0,100,0,100,150,150);
+    beach.explore();
+	
+}
 
 private static void testMirrorArms() {
 	Picture beach = new Picture("H:\\workspace\\Unit16\\bin\\images\\snowman.jpg");
