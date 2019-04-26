@@ -53,17 +53,17 @@ public class PictureTester {
 		// and comment out the ones you don't want
 		// to run
 		
-		//easy
+		// easy
 		
 		// testZeroBlue();
 		// testKeepOnlyBlue();
 		// testKeepOnlyRed();
 		// testKeepOnlyGreen();
-		// testNegate();
+		 testNegate();
 		// testGrayscale();
 		// testFixUnderwater();
 		
-		//medum
+		// medum
 		
 		// testMirrorVertical();
 		// testMirrorHorizontal();
@@ -72,7 +72,7 @@ public class PictureTester {
 		// testMirrorGull();
 		// testMirrorDiagonal();
 		
-		//hard
+		// hard
 		
 		// testCollage();
 		// testCopy();
@@ -171,7 +171,7 @@ public class PictureTester {
 	}
 
 	private static void testNegate() {
-		Picture pic = new Picture("src\\images\\robot.jpg");
+		Picture pic = new Picture("src\\images\\swan.jpg");
 		pic.explore();
 		pic.negate();
 		pic.explore();
