@@ -68,6 +68,19 @@ public class Paddle extends Block {
 		draw(window);
 
 	}
+	
+	public void moveLeftAndDraw(Graphics window) {
+		drawOver(window);
+		setX(getX() - speed);
+		draw(window);
+	}
+
+	public void moveRightAndDraw(Graphics window) {
+		drawOver(window);
+		setX(getX() + speed);
+		draw(window);
+
+	}
 
 	@Override
 	public String toString() {

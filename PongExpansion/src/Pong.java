@@ -29,16 +29,49 @@ public class Pong extends Canvas implements KeyListener, Runnable {
 	private final int HIT_IGNORE_FRAMES = 40;
 	private double speedMultiplyer = 1;
 	private boolean ballHit;
+	private final static int BLOCK_WIDTH = 90;
+	private final static int BLOCK_HEIGHT = 40;
+
+	static private final Crushable[] level0 = { new Crushable(0, 100, BLOCK_HEIGHT, BLOCK_WIDTH, 0),
+			new Crushable(100, 100, BLOCK_HEIGHT, BLOCK_WIDTH, 0), new Crushable(200, 100, BLOCK_HEIGHT, BLOCK_WIDTH, 0),
+			new Crushable(300, 100, BLOCK_HEIGHT, BLOCK_WIDTH, 0), new Crushable(400, 100, BLOCK_HEIGHT, BLOCK_WIDTH, 0),
+			new Crushable(500, 100, BLOCK_HEIGHT, BLOCK_WIDTH, 0),  new Crushable(700, 300, BLOCK_WIDTH, BLOCK_HEIGHT, 0), new Crushable(100, 300, BLOCK_WIDTH, BLOCK_HEIGHT, 0)};
+	static private final Crushable[] level1 = { new Crushable(0, 100, BLOCK_HEIGHT, BLOCK_WIDTH, 1),
+			new Crushable(100, 100, BLOCK_HEIGHT, BLOCK_WIDTH, 1), new Crushable(200, 100, BLOCK_HEIGHT, BLOCK_WIDTH, 1),
+			new Crushable(300, 100, BLOCK_HEIGHT, BLOCK_WIDTH, 1), new Crushable(400, 100, BLOCK_HEIGHT, BLOCK_WIDTH, 1),
+			new Crushable(500, 100, BLOCK_HEIGHT, BLOCK_WIDTH, 1), new Crushable(0, 200, BLOCK_HEIGHT, BLOCK_WIDTH, 1),
+			new Crushable(100, 200, BLOCK_HEIGHT, BLOCK_WIDTH, 1), new Crushable(200, 200, BLOCK_HEIGHT, BLOCK_WIDTH, 1),
+			new Crushable(300, 200, BLOCK_HEIGHT, BLOCK_WIDTH, 1), new Crushable(400, 200, BLOCK_HEIGHT, BLOCK_WIDTH, 1),
+			new Crushable(500, 200, BLOCK_HEIGHT, BLOCK_WIDTH, 1) };
+	static private final Crushable[] level2 = new Crushable[64];
+	static private final Crushable[] level3 = new Crushable[128];
+	static {
+		int level = 0;
+		for(int i = 0; i < level2.length; i++) {
+			if(i > 0 && i%16 == 0) {
+				level++;
+			}
+			level2[i] = new Crushable(i * 50 - level*800,level*50+50, 40, 40, 2);
+		}
+	}
 	
-	static private final Crushable[] level0 = {new Crushable()};
-	static private final Crushable[] level1 = {new Crushable()};
-	static private final Crushable[][] levels = {level0, level1};
+	static {
+		int level = 0;
+		for(int i = 0; i < level3.length; i++) {
+			if(i > 0 && i%16 == 0) {
+				level++;
+			}
+			level3[i] = new Crushable(i * 50 - level*800,level*50+50, 40, 40, 2);
+		}
+	}
+	
+	static private final Crushable[][] levels = { level0, level1, level2, level3 };
 	Random rand = new Random();
 
 	public Pong() {
 		// set up all variables related to the game
-		ball = new Ball(200, 200, 10, 10, Color.black, 2, 2);
-		paddle = new Paddle(TheGame.WIDTH/2, 200, 40, 40, Color.DARK_GRAY, 7);
+		ball = new Ball(TheGame.WIDTH / 2, TheGame.HEIGHT / 2, 10, 10, Color.black, 2, -2);
+		paddle = new Paddle(TheGame.WIDTH / 2, 400, 40, 40, Color.DARK_GRAY, 7);
 		crushables = new ArrayList<>();
 		nextLevel();
 
@@ -53,16 +86,16 @@ public class Pong extends Canvas implements KeyListener, Runnable {
 
 	public void update(Graphics window) {
 		paint(window);
-	} 
-	
+	}
+
 	public void nextLevel() {
 		level++;
 		load(levels[level]);
 	}
-	
+
 	public void load(Crushable[] level) {
 		crushables.clear();
-		for(Crushable c : level) {
+		for (Crushable c : level) {
 			crushables.add(c);
 		}
 	}
@@ -80,14 +113,18 @@ public class Pong extends Canvas implements KeyListener, Runnable {
 
 		ball.moveAndDraw(window);
 		paddle.draw(window);
-		
+
 		// System.out.println(ball.getX() + " x | y " + ball.getY());
 		boolean levelOver = true;
-		for(Crushable c : crushables) {
-			c.draw(window);
-			if(c.isVisible) {
+		for (Crushable c : crushables) {
+			if (c.isVisible) {
+				c.draw(window);
+				c.isColiding(ball, window);
 				levelOver = false;
 			}
+		}
+		if(levelOver) {
+			nextLevel();
 		}
 
 		// see if the ball hits the top or side walls
@@ -97,26 +134,48 @@ public class Pong extends Canvas implements KeyListener, Runnable {
 		if (ball.getX() <= 0) {
 			ball.setxSpeed(-ball.getxSpeed());
 		}
-		if (ball.getX() >= 800-40) {
+		if (ball.getX() >= 800 - 40) {
 			ball.setxSpeed(-ball.getxSpeed());
 		}
-		
-		//see if ball hits bottem wall
-		if (ball.getY() >= 600-40) {
-			ball.setySpeed(-ball.getySpeed());
+
+		// see if ball hits bottem wall
+		if (ball.getY() >= 600 - 40) {
+			ball.drawOver(window);
+			ball.setxSpeed(0);
+			ball.setySpeed(0);
+			ball.setX(400);
+			ball.setY(300);
+			countDown = RESET_BALL_FRAMES;
+			load(levels[level]);
 		}
 		// see if the ball hits the right paddle
-//		if (ball.getX() + ball.getWidth() > rightPaddle.getX() && ball.getY() + ball.getHeight() > rightPaddle.getY()
-//				&& rightPaddle.getY() + rightPaddle.getHeight() > ball.getY() && !ballHit) {
-//			ball.setxSpeed((int) (-(rand.nextInt(1) + 2) * speedMultiplyer));
-//			ball.setySpeed(rand.nextBoolean() ? rand.nextInt(3) + 1 : -rand.nextInt(3) - 1);
-//
-//			speedMultiplyer += .2;
-//			// System.out.println("right hit!");
-//
-//			ballHit = true;
-//			ballHitCountdown = HIT_IGNORE_FRAMES;
-//		}
+		if (!ballHit && ball.getX() < paddle.getX() + paddle.getWidth() && ball.getX() + ball.getWidth() > paddle.getX()
+				&& ball.getY() < paddle.getY() + paddle.getHeight() && ball.getY() + ball.getHeight() > paddle.getY()) {
+			ball.setxSpeed(-ball.getxSpeed());
+			if (ball.getY() < paddle.getY() + paddle.getHeight() / 2) {
+				ball.setySpeed(-2);
+			} else {
+				ball.setySpeed(2);
+			}
+			if (ball.getX() < paddle.getX() + paddle.getWidth() / 2) {
+				ball.setxSpeed(-2);
+			} else {
+				ball.setxSpeed(2);
+			}
+
+			ballHit = true;
+			ballHitCountdown = HIT_IGNORE_FRAMES;
+		}
+
+		if (countDown > 0) {
+			countDown--;
+		}
+		if (countDown == 0) {
+			ball.setxSpeed(rand.nextBoolean() ? 2 : -2);
+			ball.setySpeed(-2);
+			countDown = -1;
+			speedMultiplyer = 1;
+		}
 
 		if (ballHitCountdown > 0) {
 			ballHitCountdown--;
@@ -128,21 +187,29 @@ public class Pong extends Canvas implements KeyListener, Runnable {
 		// see if the paddles need to be moved
 
 		// System.out.println(leftPaddle.getX() + " x | y " + leftPaddle.getY());
-		//W
+		// W
 		if (keys[0]) {
-			paddle.moveUpAndDraw(window);
+			if (paddle.getY() > 0) {
+				paddle.moveUpAndDraw(window);
+			}
 		}
-		//A
+		// A
 		if (keys[1]) {
-			
+			if (paddle.getX() > 0) {
+				paddle.moveLeftAndDraw(window);
+			}
 		}
-		//S
+		// S
 		if (keys[2]) {
-			paddle.moveDownAndDraw(window);
+			if (paddle.getY() < TheGame.HEIGHT - paddle.getHeight() * 2) {
+				paddle.moveDownAndDraw(window);
+			}
 		}
-		//D
+		// D
 		if (keys[3]) {
-			
+			if (paddle.getX() < TheGame.WIDTH - paddle.getWidth() * 2) {
+				paddle.moveRightAndDraw(window);
+			}
 		}
 
 		// twoDGraph.drawImage(back, null, 0, 0);
