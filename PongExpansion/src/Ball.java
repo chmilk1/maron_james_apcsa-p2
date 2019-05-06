@@ -33,11 +33,10 @@ public class Ball extends Block {
 	// add the set methods
 
 	public void moveAndDraw(Graphics window) {
-		// draw a white ball at old ball location
 		drawOver(window);
 		setX(getX() + xSpeed);
 		setY(getY() + ySpeed);
-		draw(window);
+		super.draw(window);
 		// setY
 
 		// draw the ball at its new location
