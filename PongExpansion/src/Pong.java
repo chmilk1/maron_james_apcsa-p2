@@ -32,15 +32,44 @@ public class Pong extends Canvas implements KeyListener, Runnable {
 	private final static int BLOCK_WIDTH = 90;
 	private final static int BLOCK_HEIGHT = 40;
 
-	static private final Crushable[] level0 = { new Crushable(0, 100, BLOCK_HEIGHT, BLOCK_WIDTH, 0),
+	static private final Crushable[] level0 = { 
+			new Crushable(0, 10, BLOCK_HEIGHT, BLOCK_WIDTH, 0),
+			new Crushable(100, 10, BLOCK_HEIGHT, BLOCK_WIDTH, 0),
+			new Crushable(200, 10, BLOCK_HEIGHT, BLOCK_WIDTH, 0),
+			new Crushable(300, 10, BLOCK_HEIGHT, BLOCK_WIDTH, 0),
+			new Crushable(400, 10, BLOCK_HEIGHT, BLOCK_WIDTH, 0),
+			new Crushable(500, 10, BLOCK_HEIGHT, BLOCK_WIDTH, 0),
+			new Crushable(600, 10, BLOCK_HEIGHT, BLOCK_WIDTH, 0),
+			new Crushable(700, 10, BLOCK_HEIGHT, BLOCK_WIDTH, 0),
+			new Crushable(0, 100, BLOCK_HEIGHT, BLOCK_WIDTH, 0),
 			new Crushable(100, 100, BLOCK_HEIGHT, BLOCK_WIDTH, 0),
 			new Crushable(200, 100, BLOCK_HEIGHT, BLOCK_WIDTH, 0),
 			new Crushable(300, 100, BLOCK_HEIGHT, BLOCK_WIDTH, 0),
 			new Crushable(400, 100, BLOCK_HEIGHT, BLOCK_WIDTH, 0),
 			new Crushable(500, 100, BLOCK_HEIGHT, BLOCK_WIDTH, 0),
-			new Crushable(700, 300, BLOCK_WIDTH, BLOCK_HEIGHT, 0), new Crushable(10, 300, BLOCK_WIDTH, BLOCK_HEIGHT, 0),
-			new Crushable(700, 400, BLOCK_WIDTH, BLOCK_HEIGHT, 0),
-			new Crushable(10, 400, BLOCK_WIDTH, BLOCK_HEIGHT, 0) };
+			new Crushable(600, 100, BLOCK_HEIGHT, BLOCK_WIDTH, 0),
+			new Crushable(700, 100, BLOCK_HEIGHT, BLOCK_WIDTH, 0),
+			new Crushable(0, 500, BLOCK_HEIGHT, BLOCK_WIDTH, 0),
+			new Crushable(100, 500, BLOCK_HEIGHT, BLOCK_WIDTH, 0),
+			new Crushable(200, 500, BLOCK_HEIGHT, BLOCK_WIDTH, 0),
+			new Crushable(300, 500, BLOCK_HEIGHT, BLOCK_WIDTH, 0),
+			new Crushable(400, 500, BLOCK_HEIGHT, BLOCK_WIDTH, 0),
+			new Crushable(500, 500, BLOCK_HEIGHT, BLOCK_WIDTH, 0),
+			new Crushable(600, 500, BLOCK_HEIGHT, BLOCK_WIDTH, 0),
+			new Crushable(700, 500, BLOCK_HEIGHT, BLOCK_WIDTH, 0),
+			new Crushable(0, 400, BLOCK_HEIGHT, BLOCK_WIDTH, 0),
+			new Crushable(100, 400, BLOCK_HEIGHT, BLOCK_WIDTH, 0),
+			new Crushable(200, 400, BLOCK_HEIGHT, BLOCK_WIDTH, 0),
+			new Crushable(300, 400, BLOCK_HEIGHT, BLOCK_WIDTH, 0),
+			new Crushable(400, 400, BLOCK_HEIGHT, BLOCK_WIDTH, 0),
+			new Crushable(500, 400, BLOCK_HEIGHT, BLOCK_WIDTH, 0),
+			new Crushable(600, 400, BLOCK_HEIGHT, BLOCK_WIDTH, 0),
+			new Crushable(700, 400, BLOCK_HEIGHT, BLOCK_WIDTH, 0),
+			new Crushable(10, 300, BLOCK_WIDTH, BLOCK_HEIGHT, 0),
+			new Crushable(10, 200, BLOCK_WIDTH, BLOCK_HEIGHT, 0),
+			new Crushable(720, 300, BLOCK_WIDTH, BLOCK_HEIGHT, 0),
+			new Crushable(720, 200, BLOCK_WIDTH, BLOCK_HEIGHT, 0)};
+	
 	static private final Crushable[] level1 = { new Crushable(0, 100, BLOCK_HEIGHT, BLOCK_WIDTH, 1),
 			new Crushable(100, 10, BLOCK_HEIGHT, BLOCK_WIDTH, 1),
 			new Crushable(200, 10, BLOCK_HEIGHT, BLOCK_WIDTH, 1),
@@ -52,6 +81,7 @@ public class Pong extends Canvas implements KeyListener, Runnable {
 			new Crushable(300, 500, BLOCK_HEIGHT, BLOCK_WIDTH, 1),
 			new Crushable(400, 500, BLOCK_HEIGHT, BLOCK_WIDTH, 1),
 			new Crushable(500, 500, BLOCK_HEIGHT, BLOCK_WIDTH, 1) };
+	
 	static private final Crushable[] level2 = new Crushable[64];
 	static private final Crushable[] level3 = new Crushable[128];
 	static {
@@ -74,13 +104,13 @@ public class Pong extends Canvas implements KeyListener, Runnable {
 		}
 	}
 
-	static private final Crushable[][] levels = { level0, level1, level2, level3 };
+	static private final Crushable[][] levels = { level0, level3, level2, level1 };
 	Random rand = new Random();
 
 	public Pong() {
 		// set up all variables related to the game
 		ball = new Ball(TheGame.WIDTH / 2, TheGame.HEIGHT / 2, 10, 10, Color.black, 2, -2);
-		paddle = new Paddle(TheGame.WIDTH / 2, 400, 40, 40, Color.DARK_GRAY, 7);
+		paddle = new Paddle(TheGame.WIDTH / 2, 300, 40, 40, Color.DARK_GRAY, 7);
 		crushables = new ArrayList<>();
 		nextLevel();
 
@@ -99,7 +129,11 @@ public class Pong extends Canvas implements KeyListener, Runnable {
 
 	public void nextLevel() {
 		level++;
+		try {
 		load(levels[level]);
+		} catch (Exception e) {
+			System.out.println("You Win!");
+		}
 	}
 
 	public void load(Crushable[] level) {
@@ -130,7 +164,10 @@ public class Pong extends Canvas implements KeyListener, Runnable {
 		}
 		
 		if(keys[4]) {
+			window.setColor(Color.WHITE);
+			window.fillRect(0, 0, TheGame.WIDTH, TheGame.HEIGHT);
 			nextLevel();
+			keys[4] = false;
 		}
 
 		// see if the ball hits the top or side walls
@@ -259,7 +296,7 @@ public class Pong extends Canvas implements KeyListener, Runnable {
 	public void keyTyped(KeyEvent e) {
 		switch (toUpperCase(e.getKeyChar())) {
 		case 'L':
-			keys[4] = false;
+			keys[4] = true;
 			break;
 		}
 	}

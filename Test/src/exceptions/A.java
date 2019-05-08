@@ -7,4 +7,7 @@ public void b(){a = 1;}
 public String toString() {
 	return a + "";
 }
+public void hello() {
+	
+}
 }

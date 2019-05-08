@@ -11,4 +11,8 @@ public void b() {
 	public String toString() {
 		return super.toString();
 	}
+public void hello()
+{
+	
+}
 }

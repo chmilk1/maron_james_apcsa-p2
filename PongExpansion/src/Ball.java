@@ -36,7 +36,7 @@ public class Ball extends Block {
 		drawOver(window);
 		setX(getX() + xSpeed);
 		setY(getY() + ySpeed);
-		super.draw(window);
+		draw(window);
 		// setY
 
 		// draw the ball at its new location
