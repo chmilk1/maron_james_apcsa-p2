@@ -31,10 +31,10 @@ public class Ship extends MovingThing {
 		super(x, y, w, h);
 		speed = s;
 		try {
-			URL url = getClass().getResource("/images/ship.jpg");
-			image = ImageIO.read(url);
+			image = ImageIO.read(new File("src//ship.jpg"));
 		} catch (Exception e) {
-			// feel free to do something here
+			e.printStackTrace();
+			System.out.println("PictureNotFound");
 		}
 	}
 
@@ -47,9 +47,18 @@ public class Ship extends MovingThing {
 	}
 
 	public void move(String direction) {
-		switch (direction) {
+		switch (direction.toLowerCase()) {
 		case "up":
-			
+			setY(getY()-getSpeed());
+			break;
+		case "down":
+			setY(getY()+getSpeed());
+			break;
+		case "right":
+			setX(getX()+getSpeed());
+			break;
+		case "left":
+			setX(getX()-getSpeed());
 			break;
 
 		default:

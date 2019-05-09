@@ -37,6 +37,9 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 
 		//instantiate other instance variables
 		//Ship, Alien
+		ship = new Ship(StarFighter.WIDTH/2, StarFighter.HEIGHT/2, 40, 40, 5);
+		alienOne = new Alien(100, 200);
+		alienOne = new Alien(400, 200);
 
 		this.addKeyListener(this);
 		new Thread(this).start();
@@ -51,6 +54,7 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 
 	public void paint( Graphics window )
 	{
+		
 		//set up the double buffering to make the game animation nice and smooth
 		Graphics2D twoDGraph = (Graphics2D)window;
 
@@ -67,13 +71,29 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 		graphToBack.drawString("StarFighter ", 25, 50 );
 		graphToBack.setColor(Color.BLACK);
 		graphToBack.fillRect(0,0,800,600);
+		
+		//add code to move Ship, Alien, etc.
 
-		if(keys[0] == true)
+		if(keys[0] == true && ship.getX() > 0)
 		{
 			ship.move("LEFT");
 		}
-
-		//add code to move Ship, Alien, etc.
+		if(keys[1] == true && ship.getX()+ship.getWidth()+10 < StarFighter.WIDTH)
+		{
+			ship.move("RIGHT");
+		}
+		if(keys[2] == true && ship.getY() > 0)
+		{
+			ship.move("UP");
+		}
+		if(keys[3] == true && ship.getY()+ship.getHeight()*2 < StarFighter.HEIGHT)
+		{
+			ship.move("DOWN");
+		}
+		
+		ship.draw(graphToBack);
+//		alienOne.draw(graphToBack);
+//		alienTwo.draw(graphToBack);
 
 
 		//add in collision detection to see if Bullets hit the Aliens and if Bullets hit the Ship
@@ -85,19 +105,19 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 
 	public void keyPressed(KeyEvent e)
 	{
-		if (e.getKeyCode() == KeyEvent.VK_LEFT)
+		if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A)
 		{
 			keys[0] = true;
 		}
-		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D)
 		{
 			keys[1] = true;
 		}
-		if (e.getKeyCode() == KeyEvent.VK_UP)
+		if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W)
 		{
 			keys[2] = true;
 		}
-		if (e.getKeyCode() == KeyEvent.VK_DOWN)
+		if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S)
 		{
 			keys[3] = true;
 		}
@@ -110,19 +130,19 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 
 	public void keyReleased(KeyEvent e)
 	{
-		if (e.getKeyCode() == KeyEvent.VK_LEFT)
+		if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A)
 		{
 			keys[0] = false;
 		}
-		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D)
 		{
 			keys[1] = false;
 		}
-		if (e.getKeyCode() == KeyEvent.VK_UP)
+		if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W)
 		{
 			keys[2] = false;
 		}
-		if (e.getKeyCode() == KeyEvent.VK_DOWN)
+		if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S)
 		{
 			keys[3] = false;
 		}
