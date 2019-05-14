@@ -13,17 +13,18 @@ import javax.imageio.ImageIO;
 public class Alien extends MovingThing {
 	private int speed;
 	private Image image;
+	boolean moveRight = false;
 
 	public Alien() {
-		this(0, 0, 30, 30, 0);
+		this(0, 0, 40, 40, 3);
 	}
 
 	public Alien(int x, int y) {
-		this(x, y, 30, 30, 5);
+		this(x, y, 40, 40, 3);
 	}
 
 	public Alien(int x, int y, int s) {
-		this(x, y, 30, 30, s);
+		this(x, y, 40, 40, s);
 	}
 
 	public Alien(int x, int y, int w, int h, int s) {
@@ -43,6 +44,15 @@ public class Alien extends MovingThing {
 	public int getSpeed() {
 		return speed;
 	}
+	
+	public boolean checkCollision(Ammo ammo) {
+		if (ammo.getX() < getX() + getWidth() && ammo.getX() + ammo.getWidth() > getX()
+				&& ammo.getY() < getY() + getHeight() && ammo.getY() + ammo.getHeight() > getY()) {
+			return true;
+		}
+		return false;
+		
+	}
 
 	public void move(String direction) {
 		switch (direction.toLowerCase()) {
@@ -50,7 +60,7 @@ public class Alien extends MovingThing {
 			setY(getY()-getSpeed());
 			break;
 		case "down":
-			setY(getY()+getSpeed());
+			setY(getY()+getSpeed()*10);
 			break;
 		case "right":
 			setX(getX()+getSpeed());
@@ -61,6 +71,13 @@ public class Alien extends MovingThing {
 
 		default:
 			break;
+		}
+	}
+	public void move() {
+		if(moveRight) {
+			move("RIGHT");
+		} else {
+			move("LEFT");
 		}
 	}
 
