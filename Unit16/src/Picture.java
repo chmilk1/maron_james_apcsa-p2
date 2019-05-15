@@ -29,7 +29,8 @@ public class Picture extends SimplePicture {
 	/**
 	 * Constructor that takes a file name and creates the picture
 	 * 
-	 * @param fileName the name of the file to create the picture from
+	 * @param fileName
+	 *            the name of the file to create the picture from
 	 */
 	public Picture(String fileName) {
 		// let the parent class handle this fileName
@@ -39,8 +40,10 @@ public class Picture extends SimplePicture {
 	/**
 	 * Constructor that takes the width and height
 	 * 
-	 * @param height the height of the desired picture
-	 * @param width  the width of the desired picture
+	 * @param height
+	 *            the height of the desired picture
+	 * @param width
+	 *            the width of the desired picture
 	 */
 	public Picture(int height, int width) {
 		// let the parent class handle this width and height
@@ -50,7 +53,8 @@ public class Picture extends SimplePicture {
 	/**
 	 * Constructor that takes a picture and creates a copy of that picture
 	 * 
-	 * @param copyPicture the picture to copy
+	 * @param copyPicture
+	 *            the picture to copy
 	 */
 	public Picture(Picture copyPicture) {
 		// let the parent class do the copy
@@ -60,7 +64,8 @@ public class Picture extends SimplePicture {
 	/**
 	 * Constructor that takes a buffered image
 	 * 
-	 * @param image the buffered image to use
+	 * @param image
+	 *            the buffered image to use
 	 */
 	public Picture(BufferedImage image) {
 		super(image);
@@ -103,14 +108,14 @@ public class Picture extends SimplePicture {
 			}
 		}
 	}
-	
+
 	public void jamesEdgeDetect() {
 		Picture edited = new Picture(this);
 		Pixel[][] OurPixels = this.getPixels2D();
 		Pixel[][] theirPixels = edited.getPixels2D();
-		for(int row = 0; row < OurPixels.length; row++) {
-			for(int col = 0; col < OurPixels[0].length; col++) {
-				if(isEdge(OurPixels, row, col)) {
+		for (int row = 0; row < OurPixels.length; row++) {
+			for (int col = 0; col < OurPixels[0].length; col++) {
+				if (isEdge(OurPixels, row, col)) {
 					theirPixels[row][col].setColor(Color.BLACK);
 				} else {
 					theirPixels[row][col].setColor(Color.WHITE);
@@ -118,37 +123,38 @@ public class Picture extends SimplePicture {
 			}
 		}
 		this.copyPicture(edited);
-		
+
 	}
-	
-	//change this to change how much edge is detected
+
+	// change this to change how much edge is detected
 	public static final double EDGE_DIFF = 20;
+
 	public boolean isEdge(Pixel[][] pixeles, int row, int col) {
-		//up
-		if(row > 0 && getPrecentDiff(pixeles[row][col], pixeles[row-1][col]) >= EDGE_DIFF) {
+		// up
+		if (row > 0 && getPrecentDiff(pixeles[row][col], pixeles[row - 1][col]) >= EDGE_DIFF) {
 			return true;
 		}
-		//down
-		else if(row < pixeles.length-1 && getPrecentDiff(pixeles[row][col], pixeles[row+1][col]) >= EDGE_DIFF) {
+		// down
+		else if (row < pixeles.length - 1 && getPrecentDiff(pixeles[row][col], pixeles[row + 1][col]) >= EDGE_DIFF) {
 			return true;
 		}
-		//left
-		else if(col > 0 && getPrecentDiff(pixeles[row][col], pixeles[row][col-1]) >= EDGE_DIFF) {
+		// left
+		else if (col > 0 && getPrecentDiff(pixeles[row][col], pixeles[row][col - 1]) >= EDGE_DIFF) {
 			return true;
 		}
-		//right
-		else if(col < pixeles[0].length-1 && getPrecentDiff(pixeles[row][col], pixeles[row][col+1]) >= EDGE_DIFF) {
+		// right
+		else if (col < pixeles[0].length - 1 && getPrecentDiff(pixeles[row][col], pixeles[row][col + 1]) >= EDGE_DIFF) {
 			return true;
 		}
 		return false;
-		
+
 	}
-	
+
 	public double getPrecentDiff(Pixel mainPix, Pixel edgePix) {
-		double red = Math.abs((mainPix.getRed()+1)-(edgePix.getRed()+1));
-		double blue = Math.abs((mainPix.getBlue()+1)-(edgePix.getBlue()+1));
-		double green = Math.abs((mainPix.getGreen()+1)-(edgePix.getGreen()+1));
-		return(Math.max(red, Math.max(blue, green)));
+		double red = Math.abs((mainPix.getRed() + 1) - (edgePix.getRed() + 1));
+		double blue = Math.abs((mainPix.getBlue() + 1) - (edgePix.getBlue() + 1));
+		double green = Math.abs((mainPix.getGreen() + 1) - (edgePix.getGreen() + 1));
+		return (Math.max(red, Math.max(blue, green)));
 	}
 
 	/**
@@ -168,15 +174,15 @@ public class Picture extends SimplePicture {
 			}
 		}
 	}
-	
+
 	public void mirrorDiag() {
 		Pixel[][] pixels = this.getPixels2D();
 		Pixel leftPixel = null;
 		Pixel rightPixel = null;
 		int width = pixels[0].length;
 		int height = pixels.length;
-		for(int middle = 0; middle < width && middle < height; middle++) {
-			for(int sec = 0; sec < middle && sec < width; sec++) {
+		for (int middle = 0; middle < width && middle < height; middle++) {
+			for (int sec = 0; sec < middle && sec < width; sec++) {
 				leftPixel = pixels[middle][sec];
 				rightPixel = pixels[sec][middle];
 				rightPixel.setColor(leftPixel.getColor());
@@ -205,18 +211,18 @@ public class Picture extends SimplePicture {
 		}
 		System.out.println(count);
 	}
-	
-	public void mirrorPart(boolean mirrorRow, int rowStart, int rowEnd,int colStart, int colEnd) {
+
+	public void mirrorPart(boolean mirrorRow, int rowStart, int rowEnd, int colStart, int colEnd) {
 		// loop through the rows
-		if(mirrorRow) {
+		if (mirrorRow) {
 			Pixel[][] pixels = this.getPixels2D();
 			Pixel topPixel = null;
 			Pixel bottemPixel = null;
 			int width = pixels[0].length;
-			for(int row = rowStart; row < rowEnd;row++) {
-				for(int col = colStart; col < colEnd;col++) {
+			for (int row = rowStart; row < rowEnd; row++) {
+				for (int col = colStart; col < colEnd; col++) {
 					topPixel = pixels[row][col];
-					bottemPixel = pixels[rowEnd+(row-rowStart)][col];
+					bottemPixel = pixels[rowEnd + (row - rowStart)][col];
 					bottemPixel.setColor(topPixel.getColor());
 				}
 			}
@@ -225,10 +231,10 @@ public class Picture extends SimplePicture {
 			Pixel leftPixel = null;
 			Pixel rightPixel = null;
 			int width = pixels[0].length;
-			for(int row = rowStart; row < rowEnd;row++) {
-				for(int col = colStart; col < colEnd;col++) {
+			for (int row = rowStart; row < rowEnd; row++) {
+				for (int col = colStart; col < colEnd; col++) {
 					leftPixel = pixels[row][col];
-					rightPixel = pixels[row][colEnd+(col-colStart)];
+					rightPixel = pixels[row][colEnd + (col - colStart)];
 					rightPixel.setColor(leftPixel.getColor());
 				}
 			}
@@ -239,19 +245,22 @@ public class Picture extends SimplePicture {
 	 * copy from the passed fromPic to the specified startRow and startCol in the
 	 * current picture
 	 * 
-	 * @param fromPic  the picture to copy from
-	 * @param startRow the start row to copy to
-	 * @param startCol the start col to copy to
+	 * @param fromPic
+	 *            the picture to copy from
+	 * @param startRow
+	 *            the start row to copy to
+	 * @param startCol
+	 *            the start col to copy to
 	 */
 	public void copy(int rowStart, int rowEnd, int colStart, int colEnd, int rowTo, int colTo) {
 		Pixel[][] toPixels = this.getPixels2D();
-		for(int row = 0; row < rowEnd-rowStart; row++) {
-			for(int col = 0; col < colEnd-rowStart; col++) {
-				toPixels[row+rowTo][col+colTo].setColor(toPixels[row+rowStart][col+colStart].getColor());
+		for (int row = 0; row < rowEnd - rowStart; row++) {
+			for (int col = 0; col < colEnd - rowStart; col++) {
+				toPixels[row + rowTo][col + colTo].setColor(toPixels[row + rowStart][col + colStart].getColor());
 			}
 		}
 	}
-	
+
 	public void copy(Picture fromPic, int startRow, int startCol) {
 		Pixel fromPixel = null;
 		Pixel toPixel = null;
@@ -287,7 +296,8 @@ public class Picture extends SimplePicture {
 	/**
 	 * Method to show large changes in color
 	 * 
-	 * @param edgeDist the distance for finding edges
+	 * @param edgeDist
+	 *            the distance for finding edges
 	 */
 	public void edgeDetection(int edgeDist) {
 		Pixel leftPixel = null;
@@ -355,17 +365,29 @@ public class Picture extends SimplePicture {
 		Pixel[][] codePixels = code.getPixels2D();
 		for (int y = 0; y < pixels.length; y++) {
 			for (int x = 0; x < pixels[0].length; x++) {
-				if(y != 0 && x > 2) {
-					
+				if (y != 0 && x > 2) {
+					if (codePixels[y][x].getBlue() < 127 && codePixels[y][x].getRed() < 127
+							&& codePixels[y][x].getGreen() < 127) {
+						if (x <= 1) {
+							if (x <= 0) {
+
+							} else {
+								
+							}
+						} else {
+							
+						}
+
+					}
 				}
 			}
 		}
-		
+
 	}
 
 	public void decode() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 } // this } is the end of class Picture, put all new methods before this
