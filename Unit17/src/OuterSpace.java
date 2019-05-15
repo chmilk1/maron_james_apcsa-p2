@@ -4,6 +4,7 @@
 //Name -
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Canvas;
@@ -20,10 +21,11 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable {
 	private ArrayList<Ammo> bullets = new ArrayList<>();
 	private ArrayList<Alien> alienHorde = new ArrayList<>();
 	private int shootTimer = -1;
-	private final int SHOOT_RESET = 25;
+	private final int SHOOT_RESET = 30;
 	private final int ALIENS_PER_ROW = 10;
 	private final int ROWS = 2;
 	boolean gameOver = false;
+	boolean gameWin = false;
 
 	/*
 	 * uncomment once you are ready for this part
@@ -33,6 +35,7 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable {
 
 	private boolean[] keys;
 	private BufferedImage back;
+
 
 	public OuterSpace() {
 		setBackground(Color.black);
@@ -60,6 +63,8 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable {
 	}
 
 	public void paint(Graphics window) {
+		 Font font = new Font("Verdana", Font.BOLD, 30);
+		 window.setFont(font);
 
 		// set up the double buffering to make the game animation nice and smooth
 		Graphics2D twoDGraph = (Graphics2D) window;
@@ -72,6 +77,7 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable {
 		// create a graphics reference to the back ground image
 		// we will draw all changes on the background image
 		Graphics graphToBack = back.createGraphics();
+		graphToBack.setFont(font);
 
 		graphToBack.setColor(Color.BLUE);
 		graphToBack.drawString("StarFighter ", 25, 50);
@@ -80,20 +86,22 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable {
 
 		// add code to move Ship, Alien, etc.
 
-		if (keys[0] == true && ship.getX() > 0) {
+		if (!gameOver && keys[0] == true && ship.getX() > 0) {
 			ship.move("LEFT");
 		}
-		if (keys[1] == true && ship.getX() + ship.getWidth() + 10 < StarFighter.WIDTH) {
+		if (!gameOver && keys[1] == true && ship.getX() + ship.getWidth() + 10 < StarFighter.WIDTH) {
 			ship.move("RIGHT");
 		}
-		if (keys[2] == true && ship.getY() > 0) {
+		if (!gameOver && keys[2] == true && ship.getY() > 0) {
 			ship.move("UP");
 		}
-		if (keys[3] == true && ship.getY() + ship.getHeight() * 2 < StarFighter.HEIGHT) {
+		if (!gameOver && keys[3] == true && ship.getY() + ship.getHeight() * 2 < StarFighter.HEIGHT) {
 			ship.move("DOWN");
 		}
-
+		
+		if(!gameOver) {
 		ship.draw(graphToBack);
+		}
 
 		for (Alien a : alienHorde) {
 			if (a.getX() < 0) {
@@ -107,11 +115,17 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable {
 			if(a.getY() > StarFighter.HEIGHT - a.getHeight()) {
 				gameOver = true;
 			}
+			
+			if (ship.getX() < a.getX() + a.getWidth() && ship.getX() + ship.getWidth() > a.getX()
+					&& ship.getY() < a.getY() + a.getHeight() && ship.getY() + ship.getHeight() > a.getY()) {
+				gameOver = true;
+			}
+			
 			a.move();
 			a.draw(graphToBack);
 		}
 
-		if (keys[4] == true && shootTimer < 0) {
+		if (keys[4] == true && shootTimer < 0 && !gameOver) {
 			bullets.add(new Ammo(ship.getX() + ship.getWidth() / 2 - 5, ship.getY()));
 			shootTimer = SHOOT_RESET;
 		}
@@ -136,19 +150,21 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable {
 				}
 			}
 		}
+		if(alienHorde.isEmpty()) {
+			gameWin = true;
+		}
 
 		// add in collision detection to see if Bullets hit the Aliens and if Bullets
 		// hit the Ship
 		if (gameOver) {
-			twoDGraph.drawImage(back, null, 0, 0);
-			twoDGraph.setColor(Color.white);
-			twoDGraph.drawRect(0, 0, 800, 600);
-			twoDGraph.setColor(Color.BLACK);
-			twoDGraph.drawString("Game Over", 50, 50);
+			graphToBack.setColor(Color.white);
+			graphToBack.drawString("Game Over", 50, 50);
 			
-		} else {
-			twoDGraph.drawImage(back, null, 0, 0);
+		} else if(gameWin) { 
+			graphToBack.setColor(Color.white);
+			graphToBack.drawString("You Win!", 50, 50);
 		}
+			twoDGraph.drawImage(back, null, 0, 0);
 
 		
 	}

@@ -19,7 +19,7 @@ public class Ammo extends MovingThing
 
 	public Ammo(int x, int y)
 	{
-		this(x,y,7);
+		this(x,y,6);
 	}
 
 	public Ammo(int x, int y, int s)
@@ -40,7 +40,7 @@ public class Ammo extends MovingThing
 
 	public void draw( Graphics window )
 	{
-		window.setColor(Color.gray);
+		window.setColor(Color.YELLOW);
 		window.fillRect(getX(), getY(), getWidth(), getHeight());
 	}
 	
