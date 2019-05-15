@@ -59,7 +59,7 @@ public class PictureTester {
 		// testKeepOnlyBlue();
 		// testKeepOnlyRed();
 		// testKeepOnlyGreen();
-		 testNegate();
+		// testNegate();
 		// testGrayscale();
 		// testFixUnderwater();
 		
@@ -83,12 +83,22 @@ public class PictureTester {
 		// ^Due: Thursday, 25
 
 		// testChromakey();
-		// testEncodeAndDecode();
+		 testEncodeAndDecode();
 		// testGetCountRedOverValue(250);
 		// testSetRedToHalfValueInTopHalf();
 		// testClearBlueOverValue(200);
 		// testGetAverageForColumn(0);
 	}
+	private static void testEncodeAndDecode() {
+		Picture beach = new Picture("src\\images\\beach.jpg");
+		Picture code = new Picture("src\\images\\msg.jpg");
+		beach.explore();
+		beach.encode(code);
+		beach.explore();
+		beach.decode();
+		
+	}
+
 	//src\images\
 	private static void testMirrorDiagonal() {
 		// TODO Auto-generated method stub

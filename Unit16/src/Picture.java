@@ -350,4 +350,22 @@ public class Picture extends SimplePicture {
 
 	}
 
+	public void encode(Picture code) {
+		Pixel[][] pixels = this.getPixels2D();
+		Pixel[][] codePixels = code.getPixels2D();
+		for (int y = 0; y < pixels.length; y++) {
+			for (int x = 0; x < pixels[0].length; x++) {
+				if(y != 0 && x > 2) {
+					
+				}
+			}
+		}
+		
+	}
+
+	public void decode() {
+		// TODO Auto-generated method stub
+		
+	}
+
 } // this } is the end of class Picture, put all new methods before this
