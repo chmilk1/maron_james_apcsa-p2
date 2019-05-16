@@ -93,9 +93,12 @@ public class PictureTester {
 		Picture beach = new Picture("src\\images\\beach.jpg");
 		Picture code = new Picture("src\\images\\msg.jpg");
 		beach.explore();
+		code.explore();
 		beach.encode(code);
 		beach.explore();
 		beach.decode();
+		beach.explore();
+		
 		
 	}
 

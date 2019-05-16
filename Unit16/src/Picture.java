@@ -320,12 +320,13 @@ public class Picture extends SimplePicture {
 	/*
 	 * Main method for testing - each class in Java can have a main method
 	 */
-	public static void main(String[] args) {
-		Picture beach = new Picture("H:\\workspace\\Unit16\\src\\images\\george.jpg");
-		beach.explore();
-		beach.zeroBlue();
-		beach.explore();
-	}
+	// public static void main(String[] args) {
+	// Picture beach = new
+	// Picture("H:\\workspace\\Unit16\\src\\images\\george.jpg");
+	// beach.explore();
+	// beach.zeroBlue();
+	// beach.explore();
+	// }
 
 	public void mirrorHorizontal() {
 		Pixel[][] pixels = this.getPixels2D();
@@ -362,31 +363,99 @@ public class Picture extends SimplePicture {
 
 	public void encode(Picture code) {
 		Pixel[][] pixels = this.getPixels2D();
+		pixels[0][0].setColor(Color.RED);
 		Pixel[][] codePixels = code.getPixels2D();
 		for (int y = 0; y < pixels.length; y++) {
 			for (int x = 0; x < pixels[0].length; x++) {
 				if (y != 0 && x > 2) {
-					if (codePixels[y][x].getBlue() < 127 && codePixels[y][x].getRed() < 127
-							&& codePixels[y][x].getGreen() < 127) {
-						if (x <= 1) {
-							if (x <= 0) {
-
-							} else {
-								
-							}
+					Pixel redPx = pixels[y][x];
+					Pixel greenPx;
+					Pixel bluePx;
+					if(x <=1) {
+						if(x == 0) {
+							greenPx = pixels[y][x-1];
+							bluePx = pixels[y-1][pixels[y-1].length-1];
 						} else {
-							
+							greenPx = pixels[y-1][pixels[y-1].length-1];;
+							bluePx = pixels[y-1][pixels[y-1].length-2];;
 						}
-
+					} else {
+						greenPx = pixels[y][x-1];
+						bluePx = pixels[y][x-2];
 					}
+					
+					if(codePixels.length > y && codePixels[y].length > x && codePixels[y][x].getRed()  < 127 && codePixels[y][x].getGreen()  < 127 && codePixels[y][x].getBlue()  < 127) {
+						redPx.setRed(getEven(redPx.getRed()));
+						bluePx.setBlue(getEven(bluePx.getBlue()));
+						greenPx.setGreen(getEven(greenPx.getGreen()));
+					} else {
+						redPx.setRed(getOdd(redPx.getRed()));
+						bluePx.setBlue(getOdd(bluePx.getBlue()));
+						greenPx.setGreen(getOdd(greenPx.getGreen()));
+					}
+					
 				}
 			}
 		}
 
 	}
 
+	Random rand = new Random();
+
+	public int getOdd(int x) {
+		if(x%2 == 0  && x%10 != 0) {
+			return x-1;
+		}
+		return x;
+	}
+
+	public int getEven(int x) {
+		if (x % 2 == 0 && x % 10 != 0) {
+			return x;
+		} else {
+			if (x % 10 == 0) {
+				return x + 2;
+			} else if (x == 1) {
+				return x + 1;
+			} else {
+				return x - 1;
+			}
+		}
+	}
+
 	public void decode() {
-		// TODO Auto-generated method stub
+		Pixel[][] pixels = this.getPixels2D();
+		for (int y = 0; y < pixels.length; y++) {
+			for (int x = 0; x < pixels[0].length; x++) {
+				if (y != 0 && x > 1) {
+					int red = pixels[y][x].getRed();
+					int green = 0;
+					int blue = 0;
+					if (x <= 1) {
+						if (x <= 0) {
+							green = pixels[y - 1][pixels.length - 1].getGreen();
+							blue = pixels[y - 1][pixels.length - 2].getBlue();
+						} else {
+							green = pixels[y][x - 1].getGreen();
+							blue = pixels[y - 1][pixels.length - 1].getBlue();
+						}
+					} else {
+						green = pixels[y][x - 1].getGreen();
+						blue = pixels[y][x - 2].getBlue();
+					}
+
+					if ((red % 2 == 0 && red % 10 != 0) && !(green % 2 == 0 && green % 10 != 0)
+							&& !(blue % 2 == 0 && blue % 10 != 0)) {
+						pixels[y][x].setColor(Color.BLACK);
+					} else {
+						pixels[y][x].setColor(Color.WHITE);
+					}
+				} else {
+					pixels[y][x].setColor(Color.WHITE);
+				}
+
+			}
+		}
 
 	}
 
