@@ -410,16 +410,12 @@ public class Picture extends SimplePicture {
 	}
 
 	public int getEven(int x) {
-		if (x % 2 == 0 && x % 10 != 0) {
+		if(x % 2 == 0) {
 			return x;
+		} else if(x %10 == 0) {
+			return x+2;
 		} else {
-			if (x % 10 == 0) {
-				return x + 2;
-			} else if (x == 1) {
-				return x + 1;
-			} else {
-				return x - 1;
-			}
+			return x-1;
 		}
 	}
 
