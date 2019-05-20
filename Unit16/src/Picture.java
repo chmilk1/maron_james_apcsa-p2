@@ -371,20 +371,21 @@ public class Picture extends SimplePicture {
 					Pixel redPx = pixels[y][x];
 					Pixel greenPx;
 					Pixel bluePx;
-					if(x <=1) {
-						if(x == 0) {
-							greenPx = pixels[y][x-1];
-							bluePx = pixels[y-1][pixels[y-1].length-1];
+					if (x <= 1) {
+						if (x == 0) {
+							greenPx = pixels[y][x - 1];
+							bluePx = pixels[y - 1][pixels[y - 1].length - 1];
 						} else {
-							greenPx = pixels[y-1][pixels[y-1].length-1];;
-							bluePx = pixels[y-1][pixels[y-1].length-2];;
+							greenPx = pixels[y - 1][pixels[y - 1].length - 1];
+							bluePx = pixels[y - 1][pixels[y - 1].length - 2];
 						}
 					} else {
-						greenPx = pixels[y][x-1];
-						bluePx = pixels[y][x-2];
+						greenPx = pixels[y][x - 1];
+						bluePx = pixels[y][x - 2];
 					}
-					
-					if(codePixels.length > y && codePixels[y].length > x && codePixels[y][x].getRed()  < 127 && codePixels[y][x].getGreen()  < 127 && codePixels[y][x].getBlue()  < 127) {
+
+					if (codePixels[y][x].getRed() > 127 && codePixels[y][x].getGreen() > 127
+							&& codePixels[y][x].getBlue() > 127) {
 						redPx.setRed(getEven(redPx.getRed()));
 						bluePx.setBlue(getEven(bluePx.getBlue()));
 						greenPx.setGreen(getEven(greenPx.getGreen()));
@@ -393,7 +394,7 @@ public class Picture extends SimplePicture {
 						bluePx.setBlue(getOdd(bluePx.getBlue()));
 						greenPx.setGreen(getOdd(greenPx.getGreen()));
 					}
-					
+
 				}
 			}
 		}
@@ -403,20 +404,21 @@ public class Picture extends SimplePicture {
 	Random rand = new Random();
 
 	public int getOdd(int x) {
-		if(x%2 == 0  && x%10 != 0) {
-			return x-1;
+		if (x % 2 == 1 || x % 10 == 0) {
+			return x;
 		}
-		return x;
+		return x - 1;
 	}
 
 	public int getEven(int x) {
-		if(x % 2 == 0) {
+		if (x % 2 == 0 && x % 10 != 0) {
 			return x;
-		} else if(x %10 == 0) {
-			return x+2;
-		} else {
-			return x-1;
+		} else if (x % 10 == 0) {
+			return x + 2;
+		}else if(x % 10 == 1) {
+			return x+1;
 		}
+		return x-1;
 	}
 
 	public void decode() {
@@ -440,8 +442,8 @@ public class Picture extends SimplePicture {
 						blue = pixels[y][x - 2].getBlue();
 					}
 
-					if ((red % 2 == 0 && red % 10 != 0) && !(green % 2 == 0 && green % 10 != 0)
-							&& !(blue % 2 == 0 && blue % 10 != 0)) {
+					if ((red % 2 == 0 && red % 10 != 0) && (green % 2 == 0 && green % 10 != 0)
+							&& (blue % 2 == 0 && blue % 10 != 0)) {
 						pixels[y][x].setColor(Color.BLACK);
 					} else {
 						pixels[y][x].setColor(Color.WHITE);
