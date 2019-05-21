@@ -408,6 +408,9 @@ public class Picture extends SimplePicture {
 	Random rand = new Random();
 
 	public int getOdd(int x) {
+		if (x > 253) {
+			return 255;
+		}
 		if (x % 2 == 1 || x % 10 == 0) {
 			return x;
 		}
@@ -415,6 +418,9 @@ public class Picture extends SimplePicture {
 	}
 
 	public int getEven(int x) {
+		if (x > 253) {
+			return 254;
+		}
 		if (x % 2 == 0 && x % 10 != 0) {
 			return x;
 		} else if (x % 10 == 0) {
@@ -428,27 +434,31 @@ public class Picture extends SimplePicture {
 	public void decode() {
 		Pixel[][] pixels = this.getPixels2D();
 		for (int y = 0; y < pixels.length; y++) {
-			for (int x = 0; x < pixels[0].length; x++) {
+			for (int x = 0; x < pixels[y].length; x++) {
 				if (y != 0 && x > 1) {
+					//----------------------------------
 					int red = pixels[y][x].getRed();
 					int green = 0;
 					int blue = 0;
 					if (x <= 1) {
-						if (x <= 0) {
-							green = pixels[y - 1][pixels.length - 1].getGreen();
-							blue = pixels[y - 1][pixels.length - 2].getBlue();
+						if (x == 0) {
+							green = pixels[y - 1][pixels[y - 1].length - 1].getGreen();
+							blue = pixels[y - 1][pixels[y - 1].length - 2].getBlue();
+
 						} else {
 							green = pixels[y][x - 1].getGreen();
-							blue = pixels[y - 1][pixels.length - 1].getBlue();
+							blue = pixels[y - 1][pixels[y - 1].length - 1].getBlue();
 						}
 					} else {
 						green = pixels[y][x - 1].getGreen();
 						blue = pixels[y][x - 2].getBlue();
 					}
+
+					System.out.println(
+							(red % 2 == 0 && red % 10 != 0) + " " + red + " " + (green % 2 == 0 && green % 10 != 0)
+									+ " " + green + " " + (blue % 2 == 0 && blue % 10 != 0) + " " + blue);
 					
-					System.out.println((red % 2 == 0 && red % 10 != 0) + " " + red + " " + (green % 2 == 0 && green % 10 != 0) + " " + green + " "
-							 + (blue % 2 == 0 && blue % 10 != 0) + " " + blue );
-					
+					//----------------------------------
 					if ((red % 2 == 0 && red % 10 != 0) && (green % 2 == 0 && green % 10 != 0)
 							&& (blue % 2 == 0 && blue % 10 != 0)) {
 						pixels[y][x].setColor(Color.BLACK);
