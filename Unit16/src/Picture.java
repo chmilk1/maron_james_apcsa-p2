@@ -395,6 +395,10 @@ public class Picture extends SimplePicture {
 						greenPx.setGreen(getOdd(greenPx.getGreen()));
 					}
 
+				} else {
+					pixels[y][x].setBlue(getOdd(pixels[y][x].getBlue()));
+					pixels[y][x].setGreen(getOdd(pixels[y][x].getGreen()));
+					pixels[y][x].setRed(getOdd(pixels[y][x].getRed()));
 				}
 			}
 		}
@@ -415,10 +419,10 @@ public class Picture extends SimplePicture {
 			return x;
 		} else if (x % 10 == 0) {
 			return x + 2;
-		}else if(x % 10 == 1) {
-			return x+1;
+		} else if (x % 10 == 1) {
+			return x + 1;
 		}
-		return x-1;
+		return x - 1;
 	}
 
 	public void decode() {
@@ -441,7 +445,10 @@ public class Picture extends SimplePicture {
 						green = pixels[y][x - 1].getGreen();
 						blue = pixels[y][x - 2].getBlue();
 					}
-
+					
+					System.out.println((red % 2 == 0 && red % 10 != 0) + " " + red + " " + (green % 2 == 0 && green % 10 != 0) + " " + green + " "
+							 + (blue % 2 == 0 && blue % 10 != 0) + " " + blue );
+					
 					if ((red % 2 == 0 && red % 10 != 0) && (green % 2 == 0 && green % 10 != 0)
 							&& (blue % 2 == 0 && blue % 10 != 0)) {
 						pixels[y][x].setColor(Color.BLACK);
