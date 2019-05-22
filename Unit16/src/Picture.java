@@ -448,8 +448,8 @@ public class Picture extends SimplePicture {
 					blue = pixels[y][x - 2].getBlue();
 				}
 
-				System.out.println(isCoded(red) + " " + red + " " + isCoded(green) + " " + green + " " + isCoded(blue)
-						+ " " + blue + ":" + x + " " + y);
+//				System.out.println(isCoded(red) + " " + red + " " + isCoded(green) + " " + green + " " + isCoded(blue)
+//						+ " " + blue + ":" + x + " " + y);
 
 				// ----------------------------------
 				if (isCoded(red) && isCoded(green) && isCoded(blue)) {
