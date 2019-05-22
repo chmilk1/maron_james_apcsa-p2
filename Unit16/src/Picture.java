@@ -29,7 +29,8 @@ public class Picture extends SimplePicture {
 	/**
 	 * Constructor that takes a file name and creates the picture
 	 * 
-	 * @param fileName the name of the file to create the picture from
+	 * @param fileName
+	 *            the name of the file to create the picture from
 	 */
 	public Picture(String fileName) {
 		// let the parent class handle this fileName
@@ -39,8 +40,10 @@ public class Picture extends SimplePicture {
 	/**
 	 * Constructor that takes the width and height
 	 * 
-	 * @param height the height of the desired picture
-	 * @param width  the width of the desired picture
+	 * @param height
+	 *            the height of the desired picture
+	 * @param width
+	 *            the width of the desired picture
 	 */
 	public Picture(int height, int width) {
 		// let the parent class handle this width and height
@@ -50,7 +53,8 @@ public class Picture extends SimplePicture {
 	/**
 	 * Constructor that takes a picture and creates a copy of that picture
 	 * 
-	 * @param copyPicture the picture to copy
+	 * @param copyPicture
+	 *            the picture to copy
 	 */
 	public Picture(Picture copyPicture) {
 		// let the parent class do the copy
@@ -60,7 +64,8 @@ public class Picture extends SimplePicture {
 	/**
 	 * Constructor that takes a buffered image
 	 * 
-	 * @param image the buffered image to use
+	 * @param image
+	 *            the buffered image to use
 	 */
 	public Picture(BufferedImage image) {
 		super(image);
@@ -240,9 +245,12 @@ public class Picture extends SimplePicture {
 	 * copy from the passed fromPic to the specified startRow and startCol in the
 	 * current picture
 	 * 
-	 * @param fromPic  the picture to copy from
-	 * @param startRow the start row to copy to
-	 * @param startCol the start col to copy to
+	 * @param fromPic
+	 *            the picture to copy from
+	 * @param startRow
+	 *            the start row to copy to
+	 * @param startCol
+	 *            the start col to copy to
 	 */
 	public void copy(int rowStart, int rowEnd, int colStart, int colEnd, int rowTo, int colTo) {
 		Pixel[][] toPixels = this.getPixels2D();
@@ -288,7 +296,8 @@ public class Picture extends SimplePicture {
 	/**
 	 * Method to show large changes in color
 	 * 
-	 * @param edgeDist the distance for finding edges
+	 * @param edgeDist
+	 *            the distance for finding edges
 	 */
 	public void edgeDetection(int edgeDist) {
 		Pixel leftPixel = null;
@@ -388,8 +397,6 @@ public class Picture extends SimplePicture {
 						greenPx.setGreen(getOdd(greenPx.getGreen()));
 					}
 
-				} else {
-					// pixels[y][x].setRed(getOdd(pixels[y][x].getRed()));
 				}
 			}
 		}
@@ -424,13 +431,13 @@ public class Picture extends SimplePicture {
 
 	public void decode() {
 		Pixel[][] pixels = this.getPixels2D();
-		XYLOOP : for (int y = pixels.length - 1; y >= 0; y--) {
+		XYLOOP: for (int y = pixels.length - 1; y >= 0; y--) {
 			for (int x = pixels[0].length - 1; x >= 0; x--) {
-				
-				if(y == 0 && x < 3) {
+
+				if (y == 0 && x < 3) {
 					break XYLOOP;
 				}
-				// ----------------------------------
+				
 				int red = pixels[y][x].getRed();
 				int green = 0;
 				int blue = 0;
@@ -447,11 +454,7 @@ public class Picture extends SimplePicture {
 					green = pixels[y][x - 1].getGreen();
 					blue = pixels[y][x - 2].getBlue();
 				}
-
-//				System.out.println(isCoded(red) + " " + red + " " + isCoded(green) + " " + green + " " + isCoded(blue)
-//						+ " " + blue + ":" + x + " " + y);
-
-				// ----------------------------------
+				
 				if (isCoded(red) && isCoded(green) && isCoded(blue)) {
 					pixels[y][x].setColor(Color.BLACK);
 				} else {
