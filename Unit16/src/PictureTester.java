@@ -61,7 +61,7 @@ public class PictureTester {
 		// testKeepOnlyGreen();
 		// testNegate();
 		// testGrayscale();
-		// testFixUnderwater();
+		 testFixUnderwater();
 		
 		// medum
 		
@@ -83,7 +83,8 @@ public class PictureTester {
 		// ^Due: Thursday, 25
 
 		// testChromakey();
-		 testEncodeAndDecode();
+		// testEncodeAndDecode();
+		// testEncodeAndDecodeRGB();
 		// testGetCountRedOverValue(250);
 		// testSetRedToHalfValueInTopHalf();
 		// testClearBlueOverValue(200);
@@ -91,12 +92,25 @@ public class PictureTester {
 	}
 	private static void testEncodeAndDecode() {
 		Picture beach = new Picture("src\\images\\beach.jpg");
-		Picture code = new Picture("src\\images\\msg.jpg");
+		Picture code = new Picture("src\\images\\apple_icon.jpg");
 		code.explore();
 		beach.explore();
 		beach.encode(code);
 		beach.explore();
 		beach.decode();
+		beach.explore();
+		
+		
+	}
+	
+	private static void testEncodeAndDecodeRGB() {
+		Picture beach = new Picture("src\\images\\beach.jpg");
+		Picture code = new Picture("src\\images\\msg2.jpg");
+		code.explore();
+		beach.explore();
+		beach.encodeRGB(code);
+		beach.explore();
+		beach.decodeRGB();
 		beach.explore();
 		
 		

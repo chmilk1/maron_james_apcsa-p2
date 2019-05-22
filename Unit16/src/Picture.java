@@ -437,7 +437,7 @@ public class Picture extends SimplePicture {
 				if (y == 0 && x < 3) {
 					break XYLOOP;
 				}
-				
+
 				int red = pixels[y][x].getRed();
 				int green = 0;
 				int blue = 0;
@@ -454,7 +454,7 @@ public class Picture extends SimplePicture {
 					green = pixels[y][x - 1].getGreen();
 					blue = pixels[y][x - 2].getBlue();
 				}
-				
+
 				if (isCoded(red) && isCoded(green) && isCoded(blue)) {
 					pixels[y][x].setColor(Color.BLACK);
 				} else {
@@ -468,6 +468,106 @@ public class Picture extends SimplePicture {
 
 	public boolean isCoded(int val) {
 		return val % 2 == 0 && val % 10 != 0;
+
+	}
+
+	public void encodeRGB(Picture code) {
+		Pixel[][] pixels = this.getPixels2D();
+		pixels[0][0].setColor(Color.RED);
+		Pixel[][] codePixels = code.getPixels2D();
+		for (int y = 0; y < pixels.length; y++) {
+			for (int x = 0; x < pixels[0].length; x++) {
+				if (y != 0 && x > 2) {
+					Pixel redPx = pixels[y][x];
+					Pixel greenPx;
+					Pixel bluePx;
+					if (x <= 1) {
+						if (x == 0) {
+							greenPx = pixels[y][x - 1];
+							bluePx = pixels[y - 1][pixels[y - 1].length - 1];
+						} else {
+							greenPx = pixels[y - 1][pixels[y - 1].length - 1];
+							bluePx = pixels[y - 1][pixels[y - 1].length - 2];
+						}
+					} else {
+						greenPx = pixels[y][x - 1];
+						bluePx = pixels[y][x - 2];
+					}
+
+					if (codePixels[y][x].getRed() > 85 || codePixels[y][x].getGreen() > 85
+							|| codePixels[y][x].getBlue() > 85) {
+						if (codePixels[y][x].getRed() > 127 && codePixels[y][x].getRed() > codePixels[y][x].getBlue()
+								&& codePixels[y][x].getRed() > codePixels[y][x].getBlue()) {
+							redPx.setRed((redPx.getRed() / 10)* 10 +2);
+
+						}
+						else if (codePixels[y][x].getBlue() > 127 && codePixels[y][x].getBlue() > codePixels[y][x].getRed()
+								&& codePixels[y][x].getBlue() > codePixels[y][x].getGreen()) {
+							redPx.setRed((redPx.getRed() / 10)* 10 +4);
+
+						}
+						else if (codePixels[y][x].getGreen() > 127 && codePixels[y][x].getGreen() > codePixels[y][x].getRed()
+								&& codePixels[y][x].getGreen() > codePixels[y][x].getBlue()) {
+							redPx.setRed((redPx.getRed() / 10)* 10 +6);
+
+
+						} else {
+							redPx.setRed((redPx.getRed() / 10)* 10 +8);
+
+						}
+
+					} else {
+						redPx.setRed(getOdd(redPx.getRed()));
+						bluePx.setBlue(getOdd(bluePx.getBlue()));
+						greenPx.setGreen(getOdd(greenPx.getGreen()));
+					}
+
+				}
+			}
+		}
+
+	}
+
+	public void decodeRGB() {
+		Pixel[][] pixels = this.getPixels2D();
+		XYLOOP: for (int y = pixels.length - 1; y >= 0; y--) {
+			for (int x = pixels[0].length - 1; x >= 0; x--) {
+
+				if (y == 0 && x < 3) {
+					break XYLOOP;
+				}
+
+				int red = pixels[y][x].getRed();
+				int green = 0;
+				int blue = 0;
+				if (x <= 1) {
+					if (x == 0) {
+						green = pixels[y - 1][pixels[y - 1].length - 1].getGreen();
+						blue = pixels[y - 1][pixels[y - 1].length - 2].getBlue();
+
+					} else {
+						green = pixels[y][x - 1].getGreen();
+						blue = pixels[y - 1][pixels[y - 1].length - 1].getBlue();
+					}
+				} else {
+					green = pixels[y][x - 1].getGreen();
+					blue = pixels[y][x - 2].getBlue();
+				}
+
+				if (red %10 == 2) {
+					pixels[y][x].setColor(Color.RED);
+				} else if (red %10 == 4) {
+					pixels[y][x].setColor(Color.BLUE);
+				} else if (red %10 == 6) {
+					pixels[y][x].setColor(Color.GREEN);
+				} else if (red %10 == 8) {
+					pixels[y][x].setColor(Color.BLACK);
+				}else {
+					pixels[y][x].setColor(Color.WHITE);
+				}
+
+			}
+		}
 
 	}
 
