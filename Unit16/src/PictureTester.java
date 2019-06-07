@@ -61,7 +61,7 @@ public class PictureTester {
 		// testKeepOnlyGreen();
 		// testNegate();
 		// testGrayscale();
-		 testFixUnderwater();
+		// testFixUnderwater();
 		
 		// medum
 		
@@ -89,7 +89,19 @@ public class PictureTester {
 		// testSetRedToHalfValueInTopHalf();
 		// testClearBlueOverValue(200);
 		// testGetAverageForColumn(0);
+		
+		modColors();
 	}
+	private static void modColors() {
+		Picture beach = new Picture("src\\images\\sup.jpg");
+		beach.explore();
+		beach.modColors();
+		beach.explore();
+		beach.modColors2();
+		beach.explore();
+		
+	}
+
 	private static void testEncodeAndDecode() {
 		Picture beach = new Picture("src\\images\\beach.jpg");
 		Picture code = new Picture("src\\images\\apple_icon.jpg");

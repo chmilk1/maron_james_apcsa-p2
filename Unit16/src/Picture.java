@@ -571,4 +571,40 @@ public class Picture extends SimplePicture {
 
 	}
 
-} // this } is the end of class Picture, put all new methods before this
+	public void modColors() {
+		Pixel[][] pixels = this.getPixels2D();
+		XYLOOP: for (int y = pixels.length - 1; y >= 0; y--) {
+			for (int x = pixels[0].length - 1; x >= 0; x--) {
+				if((y % 512) - 256 < 0) {
+					pixels[y][x].setBlue(256 - (y % 256));
+				} else {
+					pixels[y][x].setBlue(y % 256);
+				}
+				
+				if((x % 512) - 256 < 0) {
+					pixels[y][x].setRed(256 - (x % 256));
+				} else {
+					pixels[y][x].setRed(x % 256);
+				}
+				if(((int) Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)) % 512)-256 < 0) {
+					pixels[y][x].setGreen(255 - ((int) Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)) % 256));
+				} else {
+					pixels[y][x].setGreen((int) Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)) % 256);
+				}
+				
+			}
+		}
+		
+	}
+	public void modColors2() {
+		Pixel[][] pixels = this.getPixels2D();
+		XYLOOP: for (int y = pixels.length - 1; y >= 0; y--) {
+			for (int x = pixels[0].length - 1; x >= 0; x--) {
+				pixels[y][x].setBlue((int)(256*Math.sin(x)/1.5));
+				pixels[y][x].setGreen((int)(256*Math.sin(y)/1.5));
+				pixels[y][x].setRed((int)(256*Math.sin(((x+y)/2.5))));
+			}
+		}
+	}
+
+}
